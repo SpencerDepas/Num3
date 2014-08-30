@@ -16,6 +16,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,6 +28,15 @@
         android:ems="10"
         android:id="@+id/editText"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText"
+        android:visibility="invisible"
         android:layout_centerHorizontal="true" />
 
     <Button

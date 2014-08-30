@@ -27,10 +27,13 @@ public class MyActivity extends ActionBarActivity {
 
     String cellNumber;
     String [] theNumbercombos = new String[70];
-    String [] numberReturnedFromtxtFile = new String[70];
+    String [] wordReturnedFromtxtFile = new String[70];
     int totalNumberCombos = 1;
     int endOfArray = 0;
+    int endOfArrayWordsList = 0;
     int increaseOnClick = 0;
+    String finishedWord;
+
     final int startOfNumberIndexFromtxt = 23;
 
 
@@ -51,6 +54,7 @@ public class MyActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 cellNumber = editText.getText().toString();
+                finishedWord = cellNumber;
                 increaseOnClick ++;
 
 
@@ -100,14 +104,14 @@ public class MyActivity extends ActionBarActivity {
             }
 
             //tells you the end of the array
-            for(int i = 0; i < theNumbercombos.length; i++ ){
+           /* for(int i = 0; i < theNumbercombos.length; i++ ){
                 if(theNumbercombos[i] != null){
 
                 }else if(endOfArray == 0){
                     endOfArray = i - 1 ;
                 }
 
-            }
+            }*/
 
 
             return null;
@@ -145,31 +149,62 @@ public class MyActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(String... urls) {
 
+            int arrayline = 0;
+
             try {
 
 
 
+                for(int z = 0; z < theNumbercombos.length; z++) {
+
+                    InputStream input = assetManager.open("wordlist.txt");
+
+                    br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
+
+                    for (int u = 0; (sCurrentLine = br.readLine()) != null; ) {
+
+                        if (theNumbercombos[z] == null) {
+                            break;
+                        }
+
+                        if (theNumbercombos[z].equals(sCurrentLine.substring(startOfNumberIndexFromtxt))) {
+                            int endOfWordIndex = sCurrentLine.indexOf(' ');
 
 
-                InputStream input = assetManager.open("wordlist.txt");
+                            wordReturnedFromtxtFile[arrayline] = sCurrentLine;
 
-                br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
+                            arrayline++;
 
-                for (int u = 0;(sCurrentLine = br.readLine()) != null; ) {
 
-                    if (theNumbercombos[u] == null) {
-                        break;
+                            u++;
+                            break;
+
+                        }
                     }
 
-                    if (theNumbercombos[u].equals(sCurrentLine.substring(startOfNumberIndexFromtxt))) {
-                        int endOfWordIndex = sCurrentLine.indexOf(' ');
-                        numberReturnedFromtxtFile[u] = sCurrentLine.substring(0, endOfWordIndex);
-                        u++;
-                        break;
-                    }
 
-
+                    input.close();
                 }
+
+                for(int i = 0; i < wordReturnedFromtxtFile.length; i++ ){
+                    if(wordReturnedFromtxtFile[i] != null){
+                    }else if(endOfArrayWordsList == 0){
+                        endOfArrayWordsList = i ;
+                    }
+                }
+
+                for(int i = 0; i < endOfArrayWordsList; i++){
+                    int sNumberEndIndex = wordReturnedFromtxtFile[i].indexOf(" ");
+                    int sNumberStartIndex = wordReturnedFromtxtFile[i].indexOf(wordReturnedFromtxtFile[i].substring(0, sNumberEndIndex));
+                    String numberWithoutWord = wordReturnedFromtxtFile[i].substring(sNumberStartIndex, sNumberEndIndex);
+                    String onlyWord = wordReturnedFromtxtFile[i].substring(23);
+
+
+                    finishedWord = finishedWord.replace(onlyWord, numberWithoutWord);
+                }
+
+
+
 
                    /* if(theNumbercombos[i] == null){
                         break;
@@ -186,7 +221,7 @@ public class MyActivity extends ActionBarActivity {
 
 
 
-                input.close();
+
 
             }catch (IOException e) {
                 e.printStackTrace();
@@ -196,19 +231,16 @@ public class MyActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            toaster(sCurrentLineNumberOnly);
+            toaster(wordReturnedFromtxtFile[1]);
             final EditText editText = (EditText) findViewById(R.id.editText);
             //editText.setText(numberReturnedFromtxtFile[0]);
             //editText.setText(Integer.toString(increaseOnClick));
 
-            editText.setText(numberReturnedFromtxtFile[0]);
+            editText.setText(finishedWord);
             //editText.setText(theNumbercombos[0]);
 
 
         }
-
-
-
 
     }
 
@@ -235,11 +267,8 @@ public class MyActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-
         return true;
     }
-
-
 
     public void toaster(String text) {
         Context context = getApplicationContext();
@@ -247,9 +276,6 @@ public class MyActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
-
-
 
 
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -35,6 +36,7 @@ public class MyActivity extends ActionBarActivity {
     String finishedWord;
 
     final int startOfNumberIndexFromtxt = 23;
+    private ProgressBar spinner;
 
 
 
@@ -43,7 +45,7 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
         final EditText editText = (EditText) findViewById(R.id.editText);
 
 
@@ -53,6 +55,9 @@ public class MyActivity extends ActionBarActivity {
             button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+
+
+                spinner.setVisibility(View.VISIBLE);
                 cellNumber = editText.getText().toString();
                 finishedWord = cellNumber;
                 increaseOnClick ++;
@@ -231,6 +236,7 @@ public class MyActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            spinner.setVisibility(View.GONE);
             toaster(wordReturnedFromtxtFile[1]);
             final EditText editText = (EditText) findViewById(R.id.editText);
             //editText.setText(numberReturnedFromtxtFile[0]);

@@ -16,5 +16,3 @@ Outstanding tasks:
 * I need to remove the focus from the editText after onclick.
 * Then I need to remove the word from the EditText on the next focus.
 
-This is small change I made to show branches.
-

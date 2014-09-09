@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Num3e</string>
+    <string name="text_view_hint">Enter a number</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="buttonTrue">Push</string>
+    <string name="buttonFalse">Clear</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

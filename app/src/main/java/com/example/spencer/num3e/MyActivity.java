@@ -3,16 +3,32 @@ package com.example.spencer.num3e;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -26,17 +42,20 @@ import java.io.InputStreamReader;
 public class MyActivity extends ActionBarActivity {
 
 
-    String cellNumber;
-    String [] theNumbercombos = new String[70];
-    String [] wordReturnedFromtxtFile = new String[70];
-    int totalNumberCombos = 1;
-    int endOfArray = 0;
-    int endOfArrayWordsList = 0;
-    int increaseOnClick = 0;
-    String finishedWord;
 
-    final int startOfNumberIndexFromtxt = 23;
+    String cellNumber;
+    String [] theNumberCombos = new String[70];
+    String [] wordReturnedFromTxtFile = new String[70];
+
+    int endOfArrayWordsList = 0;
+    String finishedWord;
+    String finishedWordWithDash;
+
+    final int startOfNumberIndexFromTxt = 23;
     private ProgressBar spinner;
+    private EditText editText;
+    boolean pushOrClear = true;
+    //private ImageView imageView;
 
 
 
@@ -45,36 +64,167 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
-        final EditText editText = (EditText) findViewById(R.id.editText);
 
+
+
+        /*View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);*/
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        editText = (EditText) findViewById(R.id.editText);
+        //this is so that the keyboard starts as a text keyboard. it changes the aperance of the keyboard.
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+
+
+
+        ScrollView rl = (ScrollView)findViewById(R.id.ScrollView);
+        rl.setBackgroundColor(getResources().getColor(R.color.white));
 
         final Button button = (Button) findViewById(R.id.button);
+        //button.setBackgroundColor(getResources().getColor(R.color.white));
 
+        final InputMethodManager imm = (InputMethodManager) getSystemService(
+                INPUT_METHOD_SERVICE);
+
+
+        editText.addTextChangedListener(watch);
 
             button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+                public void onClick(View v) {
 
 
+                    if (pushOrClear) {
 
-                spinner.setVisibility(View.VISIBLE);
-                cellNumber = editText.getText().toString();
-                finishedWord = cellNumber;
-                increaseOnClick ++;
+                        if (editText.length() > 1 && editText.length() <= 14) {
+                            editText.setEnabled(false);
+
+                            button.setEnabled(false);
+                            pushOrClear = false;
+
+                            //this hides the keyboard on click
+                            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                            spinner.setVisibility(View.VISIBLE);
+                            //editText.setCursorVisible(false);
+                            //setCursorVisible(boolean).
+                            //editText.setVisibility(View.INVISIBLE);
+
+                            cellNumber = editText.getText().toString().replaceAll("-","");
+                            cellNumber = cellNumber.replaceAll("\\(","");
+                            cellNumber = cellNumber.replaceAll("\\)", "");
+
+                            finishedWord = cellNumber;
+                            finishedWordWithDash = cellNumber;
+                            editText.setText(" ");
+
+                            //this is to dynamikly change the editText length
+                            //as the text returned is often longer
+                            int maxLength = 20;
+                            InputFilter[] fArray = new InputFilter[1];
+                            fArray[0] = new InputFilter.LengthFilter(maxLength);
+                            editText.setFilters(fArray);
+                            //imageView.setFocusable(true);
+
+                            //this is to get the combinations of numbers to check with the txt file
+                            GetCombinations task = new GetCombinations();
+                            task.execute(new String[]{cellNumber});
+
+                        } else if (editText.length() < 2) {
+                            toaster("Must be more than one digit");
+                        }
 
 
+                    } else {
+                        //for clear
+                        String buttonTrue = getResources().getString(R.string.buttonTrue);
+                        editText.setText("");
+                        button.setText(buttonTrue);
+                        pushOrClear = true;
+                        editText.setEnabled(true);
+                        int maxLength = 14;
+                        InputFilter[] fArray = new InputFilter[1];
+                        fArray[0] = new InputFilter.LengthFilter(maxLength);
+                        editText.setFilters(fArray);
+                    }
 
-                //this is to get the combinations of numbers to check with the txt file
-                GetCombinations task = new GetCombinations();
-                task.execute(new String[] { cellNumber });
 
+                }
+            });
 
-
+        // this is for if you press done on the keyboard and you want it to work as onclick
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    button.performClick();
+                }
+                return false;
             }
-    });
-
+        });
 
     }
+
+    TextWatcher watch = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        //this addes and removes dashes to the editText
+        @Override
+        public void afterTextChanged(Editable s) {
+            //48 to 57
+            /*if(!((int)(s.charAt(s.length())) >= 48 && (int)(s.charAt(s.length())) <= 57)){
+                s.delete(s.length() -1, s.length());
+            }*/
+           // toaster((editText.getText().toString().charAt(s.length()) + " "));
+
+
+            if (s.length() == 4) {
+                String firstDash = editText.getText().toString().substring(3, 4);
+
+                if(firstDash.equals("-")){
+                    s.delete(3, 4);
+                }else {
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    s.insert(3, "-");
+                    editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                }
+
+            }
+            if ( s.length() == 8) {
+                String secondDash = editText.getText().toString().substring(7, 8);
+                if(secondDash.equals("-")) {
+                    s.delete(7, 8);
+                }else{
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    s.insert(7, "-");
+                    editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                }
+            }
+            //we dont want it to do this foir the returned word.
+            if ( s.length() == 13 && pushOrClear) {
+                String beforeEleven = s.toString();
+                String afterEleven = beforeEleven.replaceAll("-", "");
+                afterEleven = new StringBuilder(afterEleven).insert(1, "(").toString();
+                afterEleven = new StringBuilder(afterEleven).insert(5, ")").toString();
+                afterEleven = new StringBuilder(afterEleven).insert(9, "-").toString();
+                editText.setText(afterEleven);
+            }
+           /* if(s.length() >= 14 && pushOrClear){
+                toaster("Must be less than than thirteen digits");
+
+            }*/
+        }
+    };
 
 
 
@@ -87,19 +237,19 @@ public class MyActivity extends ActionBarActivity {
 
 
             int endBlockNumberLength = cellNumber.length() - 1;
-            int combinationsPerBlock = 2;
+            final  int combinationsPerBlock = 2;
 
 
-            theNumbercombos[0] = cellNumber;
+            theNumberCombos[0] = cellNumber;
 
             //this is what creates every number combination of the input number
             // 123
             //12
             //23
             //1 , 2, 3
-            for(int i = 0, z = 0, k = 1; i < theNumbercombos.length && z < combinationsPerBlock && endBlockNumberLength > 1; i++, k++ ){
+            for(int i = 0, z = 0, k = 1; i < theNumberCombos.length && z < combinationsPerBlock && endBlockNumberLength > 1; i++, k++ ){
 
-                theNumbercombos[k] = cellNumber.substring(i, i + endBlockNumberLength);
+                theNumberCombos[k] = cellNumber.substring(i, i + endBlockNumberLength);
 
 
                 if(i + endBlockNumberLength == cellNumber.length()){
@@ -107,16 +257,6 @@ public class MyActivity extends ActionBarActivity {
                     i = -1;
                 }
             }
-
-            //tells you the end of the array
-           /* for(int i = 0; i < theNumbercombos.length; i++ ){
-                if(theNumbercombos[i] != null){
-
-                }else if(endOfArray == 0){
-                    endOfArray = i - 1 ;
-                }
-
-            }*/
 
 
             return null;
@@ -143,9 +283,6 @@ public class MyActivity extends ActionBarActivity {
 
 
         public String sCurrentLine = "";
-        String sCurrentLineNumberOnly = "";
-        String sCurrentLineWordOnly = "";
-        final int startOfNumberIndex = 23;
 
         public BufferedReader br;
         final AssetManager assetManager = getAssets();
@@ -154,13 +291,13 @@ public class MyActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(String... urls) {
 
-            int arrayline = 0;
+            int arrayLine = 0;
 
             try {
 
 
 
-                for(int z = 0; z < theNumbercombos.length; z++) {
+                for(int z = 0; z < theNumberCombos.length; z++) {
 
                     InputStream input = assetManager.open("wordlist.txt");
 
@@ -168,65 +305,74 @@ public class MyActivity extends ActionBarActivity {
 
                     for (int u = 0; (sCurrentLine = br.readLine()) != null; ) {
 
-                        if (theNumbercombos[z] == null) {
+                        if (theNumberCombos[z] == null) {
                             break;
                         }
+                        if (theNumberCombos[z].equals(sCurrentLine.substring(startOfNumberIndexFromTxt))) {
 
-                        if (theNumbercombos[z].equals(sCurrentLine.substring(startOfNumberIndexFromtxt))) {
-                            int endOfWordIndex = sCurrentLine.indexOf(' ');
-
-
-                            wordReturnedFromtxtFile[arrayline] = sCurrentLine;
-
-                            arrayline++;
-
-
-                            u++;
+                            wordReturnedFromTxtFile[arrayLine] = sCurrentLine;
+                            arrayLine++;
                             break;
 
                         }
                     }
-
-
                     input.close();
                 }
 
-                for(int i = 0; i < wordReturnedFromtxtFile.length; i++ ){
-                    if(wordReturnedFromtxtFile[i] != null){
+                //renews if you want to run again
+                for(int i = 0; i < theNumberCombos.length; i ++){
+                    theNumberCombos[i] = null;
+                }
+
+                for(int i = 0; i < wordReturnedFromTxtFile.length; i++ ){
+                    if(wordReturnedFromTxtFile[i] != null){
                     }else if(endOfArrayWordsList == 0){
                         endOfArrayWordsList = i ;
                     }
                 }
 
-                for(int i = 0; i < endOfArrayWordsList; i++){
-                    int sNumberEndIndex = wordReturnedFromtxtFile[i].indexOf(" ");
-                    int sNumberStartIndex = wordReturnedFromtxtFile[i].indexOf(wordReturnedFromtxtFile[i].substring(0, sNumberEndIndex));
-                    String numberWithoutWord = wordReturnedFromtxtFile[i].substring(sNumberStartIndex, sNumberEndIndex);
-                    String onlyWord = wordReturnedFromtxtFile[i].substring(23);
+                //this is for if there are no returned words.
+                if(wordReturnedFromTxtFile[0] != null) {
+                    for (int i = 0; i < endOfArrayWordsList; i++) {
+
+                        int sNumberEndIndex = wordReturnedFromTxtFile[i].indexOf(" ");
+                        int sNumberStartIndex = wordReturnedFromTxtFile[i].indexOf(wordReturnedFromTxtFile[i].substring(0, sNumberEndIndex));
+                        String numberWithoutWord = wordReturnedFromTxtFile[i].substring(sNumberStartIndex, sNumberEndIndex);
+                        String onlyWord = wordReturnedFromTxtFile[i].substring(23);
 
 
-                    finishedWord = finishedWord.replace(onlyWord, numberWithoutWord);
+                        finishedWord = finishedWord.replace(onlyWord, numberWithoutWord);
+                        finishedWordWithDash = finishedWordWithDash.replace(onlyWord, "-" + numberWithoutWord + "-");
+
+
+                        finishedWordWithDash = finishedWordWithDash.replace(" ", "");
+                        //removes white space at start and end of word
+                        if (finishedWordWithDash.charAt(0) == '-') {
+                            finishedWordWithDash = finishedWordWithDash.substring(1, finishedWordWithDash.length());
+                        }
+                        if (finishedWordWithDash.charAt(finishedWordWithDash.length() - 1) == '-') {
+                            finishedWordWithDash = finishedWordWithDash.substring(0, finishedWordWithDash.length() - 1);
+                        }
+
+
+                    }
+                }else{
+                    finishedWordWithDash = "Sorry mate.";
                 }
 
-
-
-
-                   /* if(theNumbercombos[i] == null){
+                while(true){
+                    if(finishedWordWithDash.contains("--")){
+                        finishedWordWithDash = finishedWordWithDash.replace("--", "-");
+                    }else{
                         break;
                     }
+                }
 
-                    sCurrentLineNumberOnly = sCurrentLine.substring(startOfNumberIndex);
-
-                    if(theNumbercombos[0].equals(sCurrentLineNumberOnly)){
-
-                        int endOfWord =  sCurrentLine.indexOf(' ');
-                        sCurrentLineWordOnly = sCurrentLine.substring(0, endOfWord);
-                        break;
-                    }*/
-
-
-
-
+                //renews if you want to run again
+                for(int i = 0; i < wordReturnedFromTxtFile.length; i ++){
+                    endOfArrayWordsList = 0;
+                    wordReturnedFromTxtFile[i] = null;
+                }
 
             }catch (IOException e) {
                 e.printStackTrace();
@@ -236,14 +382,20 @@ public class MyActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String result) {
+
+            //editText.setBackgroundResource(R.color.empty);
+            //editText.setVisibility(View.VISIBLE);
             spinner.setVisibility(View.GONE);
-            toaster(wordReturnedFromtxtFile[1]);
+
+            editText.setGravity(Gravity.CENTER);
+            //toaster(wordReturnedFromtxtFile[1]);
             final EditText editText = (EditText) findViewById(R.id.editText);
             //editText.setText(numberReturnedFromtxtFile[0]);
-            //editText.setText(Integer.toString(increaseOnClick));
+            editText.setText(finishedWordWithDash);
 
-            editText.setText(finishedWord);
-            //editText.setText(theNumbercombos[0]);
+            final Button button = (Button) findViewById(R.id.button);
+            button.setText("Clear");
+            button.setEnabled(true);
 
 
         }
@@ -282,6 +434,9 @@ public class MyActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+
+
 
 
 }

@@ -5,7 +5,7 @@ Android app that turns numbers into words.
 
 Status:
 ----------
-simple functionallty complete
+Simple functionality complete
 
 Outstanding tasks:
 ----------

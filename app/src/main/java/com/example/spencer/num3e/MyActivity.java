@@ -230,16 +230,23 @@ public class MyActivity extends ActionBarActivity {
                     editText.setInputType(InputType.TYPE_CLASS_PHONE);
                 }
             }
-            //we dont want it to do this foir the returned word.
+
+            String editTextString = editText.getText().toString();
+            //we dont want it to do this for the returned word.
             if ( s.length() == 13 && pushOrClear) {
                 String beforeEleven = s.toString();
                 String afterEleven = beforeEleven.replaceAll("-", "");
-                afterEleven = new StringBuilder(afterEleven).insert(1, " (").toString();
-                afterEleven = new StringBuilder(afterEleven).insert(6, ") ").toString();
-                afterEleven = new StringBuilder(afterEleven).insert(11, "-").toString();
-                editText.setText(afterEleven);
-                //editText.setSelection(editText.getText().toString().length())
-                editText.setSelection(editText.length());
+
+                //this is because you only want one set of brakets
+                if(!(editTextString.contains("("))) {
+
+                    afterEleven = new StringBuilder(afterEleven).insert(1, " (").toString();
+                    afterEleven = new StringBuilder(afterEleven).insert(6, ") ").toString();
+                    afterEleven = new StringBuilder(afterEleven).insert(11, "-").toString();
+                    editText.setText(afterEleven);
+                    //editText.setSelection(editText.getText().toString().length())
+                    editText.setSelection(editText.length());
+                }
             }
             /*if(s.length() == 14 ){
                 s.delete(indexOne, indexTwo);

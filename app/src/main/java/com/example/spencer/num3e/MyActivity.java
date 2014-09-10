@@ -75,7 +75,7 @@ public class MyActivity extends ActionBarActivity {
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         editText = (EditText) findViewById(R.id.editText);
         //this is so that the keyboard starts as a text keyboard. it changes the aperance of the keyboard.
-        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        //editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
 
 
@@ -181,11 +181,29 @@ public class MyActivity extends ActionBarActivity {
         //this addes and removes dashes to the editText
         @Override
         public void afterTextChanged(Editable s) {
-            //48 to 57
-            /*if(!((int)(s.charAt(s.length())) >= 48 && (int)(s.charAt(s.length())) <= 57)){
-                s.delete(s.length() -1, s.length());
-            }*/
-           // toaster((editText.getText().toString().charAt(s.length()) + " "));
+            //48 to 57 char (int) of 0-9
+
+            //greater than zero to prevent crashing from deleting and restarting to zero.
+            if(s.length() > 0) {
+                String stringChar = editText.getText().toString().substring(s.length() - 1, s.length());
+                char currentChar = stringChar.charAt(0);
+                int charNumber = currentChar;
+
+                int indexOne = s.length() - 1;
+                int indexTwo = s.length();
+
+
+                if (!(charNumber >= 48 && charNumber <= 57)) {
+                    // toaster();
+                    if (s.length() > 0) {
+                        s.delete(indexOne, indexTwo);
+                    }
+                }
+            }
+
+
+            //toaster(Integer.toString(charNumber));
+
 
 
             if (s.length() == 4) {
@@ -194,7 +212,7 @@ public class MyActivity extends ActionBarActivity {
                 if(firstDash.equals("-")){
                     s.delete(3, 4);
                 }else {
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    //editText.setInputType(InputType.TYPE_CLASS_TEXT);
                     s.insert(3, "-");
                     editText.setInputType(InputType.TYPE_CLASS_PHONE);
                 }
@@ -205,7 +223,7 @@ public class MyActivity extends ActionBarActivity {
                 if(secondDash.equals("-")) {
                     s.delete(7, 8);
                 }else{
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    //editText.setInputType(InputType.TYPE_CLASS_TEXT);
                     s.insert(7, "-");
                     editText.setInputType(InputType.TYPE_CLASS_PHONE);
                 }

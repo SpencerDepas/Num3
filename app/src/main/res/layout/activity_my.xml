@@ -32,7 +32,6 @@
             android:gravity="center"
             android:inputType="number"
             android:hint="@string/text_view_hint"
-            android:digits="0123456789"
             android:clickable="true"
             android:textColor="#345953"
             android:textColorHint="#345953"

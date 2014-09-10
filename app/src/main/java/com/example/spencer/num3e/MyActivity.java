@@ -188,7 +188,7 @@ public class MyActivity extends ActionBarActivity {
 
             //greater than zero to prevent crashing from deleting and restarting to zero.
             //this makes it so that only numbers can be entered.
-            if(s.length() > 0) {
+            if(s.length() > 0 && pushOrClear) {
                 String stringChar = editText.getText().toString().substring(s.length() - 1, s.length());
                 char currentChar = stringChar.charAt(0);
                 int charNumber = currentChar;
@@ -216,7 +216,7 @@ public class MyActivity extends ActionBarActivity {
                 }else {
                     //editText.setInputType(InputType.TYPE_CLASS_TEXT);
                     s.insert(3, "-");
-                    editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                    //editText.setInputType(InputType.TYPE_CLASS_PHONE);
                 }
 
             }
@@ -227,7 +227,7 @@ public class MyActivity extends ActionBarActivity {
                 }else{
                     //editText.setInputType(InputType.TYPE_CLASS_TEXT);
                     s.insert(7, "-");
-                    editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                    //editText.setInputType(InputType.TYPE_CLASS_PHONE);
                 }
             }
 
@@ -429,8 +429,9 @@ public class MyActivity extends ActionBarActivity {
 
             editText.setGravity(Gravity.CENTER);
             //toaster(wordReturnedFromtxtFile[1]);
-            final EditText editText = (EditText) findViewById(R.id.editText);
+
             //editText.setText(numberReturnedFromtxtFile[0]);
+
             editText.setText(finishedWordWithDash);
 
             final Button button = (Button) findViewById(R.id.button);

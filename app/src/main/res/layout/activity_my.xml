@@ -36,7 +36,7 @@
             android:textColor="#345953"
             android:textColorHint="#345953"
             android:ems="10"
-            android:maxLength="14"
+            android:maxLength="16"
             android:id="@+id/editText"
             android:layout_below="@id/imageView2"
             android:layout_marginLeft="50dp"

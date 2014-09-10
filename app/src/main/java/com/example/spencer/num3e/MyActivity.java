@@ -115,6 +115,7 @@ public class MyActivity extends ActionBarActivity {
                             cellNumber = editText.getText().toString().replaceAll("-","");
                             cellNumber = cellNumber.replaceAll("\\(","");
                             cellNumber = cellNumber.replaceAll("\\)", "");
+                            cellNumber = cellNumber.replaceAll(" ","");
 
                             finishedWord = cellNumber;
                             finishedWordWithDash = cellNumber;
@@ -182,15 +183,16 @@ public class MyActivity extends ActionBarActivity {
         @Override
         public void afterTextChanged(Editable s) {
             //48 to 57 char (int) of 0-9
+            int indexOne = s.length() - 1;
+            int indexTwo = s.length();
 
             //greater than zero to prevent crashing from deleting and restarting to zero.
+            //this makes it so that only numbers can be entered.
             if(s.length() > 0) {
                 String stringChar = editText.getText().toString().substring(s.length() - 1, s.length());
                 char currentChar = stringChar.charAt(0);
                 int charNumber = currentChar;
 
-                int indexOne = s.length() - 1;
-                int indexTwo = s.length();
 
 
                 if (!(charNumber >= 48 && charNumber <= 57)) {
@@ -232,13 +234,15 @@ public class MyActivity extends ActionBarActivity {
             if ( s.length() == 13 && pushOrClear) {
                 String beforeEleven = s.toString();
                 String afterEleven = beforeEleven.replaceAll("-", "");
-                afterEleven = new StringBuilder(afterEleven).insert(1, "(").toString();
-                afterEleven = new StringBuilder(afterEleven).insert(5, ")").toString();
-                afterEleven = new StringBuilder(afterEleven).insert(9, "-").toString();
+                afterEleven = new StringBuilder(afterEleven).insert(1, " (").toString();
+                afterEleven = new StringBuilder(afterEleven).insert(6, ") ").toString();
+                afterEleven = new StringBuilder(afterEleven).insert(11, "-").toString();
                 editText.setText(afterEleven);
+                //editText.setSelection(editText.getText().toString().length())
+                editText.setSelection(editText.length());
             }
-           /* if(s.length() >= 14 && pushOrClear){
-                toaster("Must be less than than thirteen digits");
+            /*if(s.length() == 14 ){
+                s.delete(indexOne, indexTwo);
 
             }*/
         }

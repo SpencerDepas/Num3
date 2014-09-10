@@ -1,18 +1,23 @@
 Num3
 ====
 
-Android app that turns numbers into words.
+Num3e is the easy way to remember instantly numbers that are important to you.
 
 Status:
 ----------
-Simple functionality complete
+Basic functionality complete
 
 Outstanding tasks:
 ----------
 
-* Load times could be decreased
-* UI need to be updated
-* I need to add a loading bar
-* I need to remove the focus from the editText after onclick.
-* Then I need to remove the word from the EditText on the next focus.
+* Load times need to be decreased
+* I need to add a history button that shows previously entered numbers
+* I would like to make some small UI changes, to make the logo look nicer ect 
 
+
+Desired Functions:
+-----------------
+* I would like to add a dictionary function 
+* I would like to add a reshuffle button, it will give a different set of words for the same number
+* I would like to add an animation that shows words turning into numbers, perhaps like a slot 
+machine

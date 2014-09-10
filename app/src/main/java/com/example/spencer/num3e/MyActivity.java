@@ -377,8 +377,6 @@ public class MyActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }*/
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

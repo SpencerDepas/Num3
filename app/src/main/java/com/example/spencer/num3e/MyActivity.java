@@ -248,10 +248,21 @@ public class MyActivity extends ActionBarActivity {
                     editText.setSelection(editText.length());
                 }
             }
-            /*if(s.length() == 14 ){
-                s.delete(indexOne, indexTwo);
+            //this is for when we have reached a full number and want to delete
+            //so we want to change the format back to before brakets
+            boolean editTextContainsBracket = editTextString.contains("(");
+            if (s.length() == 15 && editTextContainsBracket){
+                editTextString = editTextString.replace(" (", "");
+                editTextString = editTextString.replace(") ", "");
+                editTextString = editTextString.replace("-", "");
 
-            }*/
+                editTextString = new StringBuilder(editTextString).insert(3, "-").toString();
+                editTextString = new StringBuilder(editTextString).insert(7, "-").toString();
+                editText.setText(editTextString);
+                editText.setSelection(editText.length());
+
+            }
+
         }
     };
 

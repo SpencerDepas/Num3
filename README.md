@@ -13,6 +13,7 @@ Outstanding tasks:
 * Load times need to be decreased
 * I need to add a history button that shows previously entered numbers
 * I would like to make some small UI changes, to make the logo look nicer ect 
+* change color of history button 
 
 
 Desired Functions:

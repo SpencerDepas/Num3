@@ -9,10 +9,15 @@
 
 
 
+
+
+
         <RelativeLayout
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
             android:id="@+id/relitiveLayout">
+
+
 
 
         <ImageView
@@ -25,6 +30,25 @@
             android:layout_centerHorizontal="true" />
 
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView3"
+                    android:src="@drawable/clock"
+
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right"
+                    />
+
+
+            </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
@@ -69,7 +93,8 @@
 
 
 
-    </RelativeLayout>
+
+        </RelativeLayout>
 
 </ScrollView>
 

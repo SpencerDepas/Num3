@@ -3,12 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowActionBar="false"
-    android:id="@+id/ScrollView "
+    android:id="@+id/ScrollView1 "
     tools:context=".MyActivity">
-
-
-
-
 
 
         <RelativeLayout

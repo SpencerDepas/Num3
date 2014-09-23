@@ -40,6 +40,9 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.fragment_container);
 
 
+
+
+
         FragmentManager fragmentManagerTop = getFragmentManager();
         FragmentTransaction fragmentTransactionTop = fragmentManagerTop.beginTransaction();
 

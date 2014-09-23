@@ -58,14 +58,6 @@ public class ComputateFragment  extends Fragment {
         View view = inflater.inflate(R.layout.computate_fragment,
                 container, false);
 
-
-        /*View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);*/
-
-
-
         //button.setBackgroundColor(getResources().getColor(R.color.white));
 
 

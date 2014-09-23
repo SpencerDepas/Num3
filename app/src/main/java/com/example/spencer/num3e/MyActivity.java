@@ -61,18 +61,17 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
+
     @Override
     public void onBackPressed() {
 
-        /*FragmentManager fragmentManagerBottom = getFragmentManager();
+        FragmentManager fragmentManagerBottom = getFragmentManager();
         FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
 
-        MyListFragment myListFragment = new MyListFragment();
+        ComputateFragment computateFragment = new ComputateFragment();
 
-        fragmentTransactionBottom.replace(R.id.bottom, myListFragment);
-        fragmentTransactionBottom.commit();*/
+        fragmentTransactionBottom.replace(R.id.bottom, computateFragment);
+        fragmentTransactionBottom.commit();
     }
-
-
 
 }

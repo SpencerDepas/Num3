@@ -12,7 +12,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/imageView2"
             android:src="@drawable/numeegradiant"
-
+            android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true" />
 
 

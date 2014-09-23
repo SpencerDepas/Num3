@@ -39,7 +39,8 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
 
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
 
 

@@ -1,7 +1,9 @@
 package com.example.spencer.num3e;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ public class HistoryFragment extends Fragment {
 
     private ListView historyListView;
     private ArrayAdapter arrayAdapter;
-
+    public static final String NumberOne = "nameKey";
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -42,7 +44,15 @@ public class HistoryFragment extends Fragment {
         String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
                 "AUG", "SEPT", "OCT", "NOV", "DEC" };
 
+        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         historyListView = (ListView) getView().findViewById(R.id.history_list);
+
+        if (sharedpreferences.contains(NumberOne))
+        {
+            monthsArray[0] = (sharedpreferences.getString(NumberOne, ""));
+
+        }
 
 
         arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, monthsArray);

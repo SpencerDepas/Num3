@@ -3,9 +3,11 @@ package com.example.spencer.num3e;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.InputType;
@@ -146,24 +148,6 @@ public class ComputateFragment  extends Fragment {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -385,12 +369,25 @@ public class ComputateFragment  extends Fragment {
             return null;
         }
 
+        //public static final String MyPREFERENCES = "MyPrefs" ;
+
+        public static final String NumberOne = "nameKey";
+
         @Override
         protected void onPostExecute(String result) {
+
+            //SharedPreferences sharedpreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(NumberOne, finishedWordWithDash);
+            editor.commit();
 
             spinner.setVisibility(View.GONE);
             editText.setGravity(Gravity.CENTER);
             editText.setText(finishedWordWithDash);
+
+
 
             final Button button = (Button) getView().findViewById(R.id.button);
             button.setText("Clear");

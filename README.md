@@ -15,7 +15,7 @@ Outstanding tasks:
 * I would like to make some small UI changes, to make the logo look nicer ect 
 * change color of history button 
 * when you press the history button, the computation continues to load.
-* Fix back button when in first fragment to close app
+* After a full list of saved history it deletes the first one created.
 
 
 Desired Functions:

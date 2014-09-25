@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 /**
  * Created by spencer on 9/22/2014.
  */
@@ -33,7 +35,8 @@ public class HistoryFragment extends Fragment {
 
     private ListView historyListView;
     private ArrayAdapter arrayAdapter;
-    public static final String NumberOne = "nameKey";
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -41,21 +44,34 @@ public class HistoryFragment extends Fragment {
         LinearLayout rl = (LinearLayout) getView().findViewById(R.id.HistoryLayout);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 
-        String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
-                "AUG", "SEPT", "OCT", "NOV", "DEC" };
+       /* String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
+                "AUG", "SEPT", "OCT", "NOV", "DEC" };*/
+
+        ArrayList<String> savedWords = new ArrayList<String>();
+
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         historyListView = (ListView) getView().findViewById(R.id.history_list);
 
-        if (sharedpreferences.contains(NumberOne))
-        {
-            monthsArray[0] = (sharedpreferences.getString(NumberOne, ""));
+        int arraySize = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0));
+        if (arraySize >= 0){
+
+
+            for(int i = 0; i <= arraySize; i++){
+
+
+                //monthsArray[i] = (sharedpreferences.getString("array_" + i, null));
+                savedWords.add(sharedpreferences.getString("array_" + i, null));
+
+            }
+
+
 
         }
 
 
-        arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, monthsArray);
+        arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, savedWords);
 
 
         historyListView.setAdapter(arrayAdapter);

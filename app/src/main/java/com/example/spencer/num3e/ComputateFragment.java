@@ -31,10 +31,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by spencer on 9/22/2014.
  */
+
 
 
 public class ComputateFragment  extends Fragment {
@@ -51,6 +53,15 @@ public class ComputateFragment  extends Fragment {
     private ProgressBar spinner;
     private EditText editText;
     boolean pushOrClear = true;
+
+
+
+    //this is for saving already searched numbers
+    public static int makeNumberOneUnique = 0;
+
+    public static int SavedListOfWordsArrayIndex = 0;
+    public static final String HistoryArraySize = "arrayIndex";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -369,19 +380,44 @@ public class ComputateFragment  extends Fragment {
             return null;
         }
 
-        //public static final String MyPREFERENCES = "MyPrefs" ;
 
-        public static final String NumberOne = "nameKey";
+
+        //public static int makeStringUnique = 0;
+        //public static final String NumberOne = "transformedNumber" + Integer.toString(makeStringUnique);
+        //int historyOfSearchedNumbersCounter = 0;
+        //public static final int SavedListOfWordsArrayIndex = 0;
+        //public static final String historyOfSearchedNumbersCounter = "arrayIndex";
+        //public String[] returnedNumbers = new String[30];
+
 
         @Override
         protected void onPostExecute(String result) {
 
-            //SharedPreferences sharedpreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(NumberOne, finishedWordWithDash);
-            editor.commit();
+
+            //this is to save searched numbers
+            if(!(finishedWordWithDash.equals("Sorry mate."))){
+
+                SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+                int arraySize = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0));
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                if(arraySize == 0){
+                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash);
+                    editor.apply();
+                    SavedListOfWordsArrayIndex ++;
+                }else {
+
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash);
+                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
+                    editor.apply();
+                    SavedListOfWordsArrayIndex++;
+                }
+            }
+
+
 
             spinner.setVisibility(View.GONE);
             editText.setGravity(Gravity.CENTER);
@@ -396,6 +432,8 @@ public class ComputateFragment  extends Fragment {
         }
 
     }
+    //public static String historyStringArray = "transformedNumber";
+    //public static ArrayList<String> returnedNumbers = new ArrayList<String>();
 
 
 /*    @Override

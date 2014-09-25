@@ -61,17 +61,28 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
+    //this is so that if we are in the computate fragemnt, when we press back
+    //we go back and dont stay in the same place.
+    public static boolean inHistoryFragment = false;
 
     @Override
     public void onBackPressed() {
 
-        FragmentManager fragmentManagerBottom = getFragmentManager();
-        FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
+        if(inHistoryFragment) {
 
-        ComputateFragment computateFragment = new ComputateFragment();
+            MyActivity.inHistoryFragment = false;
 
-        fragmentTransactionBottom.replace(R.id.bottom, computateFragment);
-        fragmentTransactionBottom.commit();
+            FragmentManager fragmentManagerBottom = getFragmentManager();
+            FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
+
+            ComputateFragment computateFragment = new ComputateFragment();
+
+            fragmentTransactionBottom.replace(R.id.bottom, computateFragment);
+            fragmentTransactionBottom.commit();
+
+        }else{
+            finish();
+        }
     }
 
 }

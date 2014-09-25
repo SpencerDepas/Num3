@@ -21,6 +21,8 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.history_fragment,
                 container, false);
 
+        MyActivity.inHistoryFragment = true;
+
         return view;
     }
 

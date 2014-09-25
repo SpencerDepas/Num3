@@ -14,6 +14,8 @@ Outstanding tasks:
 * I need to add a history button that shows previously entered numbers
 * I would like to make some small UI changes, to make the logo look nicer ect 
 * change color of history button 
+* when you press the history button, the computation continues to load.
+* Fix back button when in first fragment to close app
 
 
 Desired Functions:

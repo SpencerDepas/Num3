@@ -57,8 +57,6 @@ public class ComputateFragment  extends Fragment {
 
 
     //this is for saving already searched numbers
-    public static int makeNumberOneUnique = 0;
-
     public static int SavedListOfWordsArrayIndex = 0;
     public static final String HistoryArraySize = "arrayIndex";
 
@@ -88,6 +86,7 @@ public class ComputateFragment  extends Fragment {
         final Button button = (Button) getActivity().findViewById(R.id.button);
         editText = (EditText) getActivity().findViewById(R.id.editText);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
+
 
 
 
@@ -390,30 +389,38 @@ public class ComputateFragment  extends Fragment {
         //public String[] returnedNumbers = new String[30];
 
 
+        //public static int SavedListOfWordsArrayIndex = 0;
+        boolean firstTimeActivated = true;
+
+
         @Override
         protected void onPostExecute(String result) {
-
-
 
             //this is to save searched numbers
             if(!(finishedWordWithDash.equals("Sorry mate."))){
 
                 SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-                int arraySize = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0));
+                int arraySize = (sharedpreferences.getInt(HistoryArraySize, 0));
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
+               // SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
+
+                if(firstTimeActivated ){
+                    SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
+                    firstTimeActivated = false;
+                }
+
                 if(arraySize == 0){
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash);
+                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
                     SavedListOfWordsArrayIndex ++;
                 }else {
-
+                    SavedListOfWordsArrayIndex++;
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash);
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
-                    SavedListOfWordsArrayIndex++;
+
                 }
             }
 

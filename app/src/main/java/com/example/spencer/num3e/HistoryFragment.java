@@ -44,12 +44,8 @@ public class HistoryFragment extends Fragment {
         LinearLayout rl = (LinearLayout) getView().findViewById(R.id.HistoryLayout);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 
-       /* String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
-                "AUG", "SEPT", "OCT", "NOV", "DEC" };*/
 
         ArrayList<String> savedWords = new ArrayList<String>();
-
-
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         historyListView = (ListView) getView().findViewById(R.id.history_list);

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 /**
@@ -26,6 +28,10 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
+
+    private ListView historyListView;
+    private ArrayAdapter arrayAdapter;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -33,7 +39,16 @@ public class HistoryFragment extends Fragment {
         LinearLayout rl = (LinearLayout) getView().findViewById(R.id.HistoryLayout);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 
+        String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
+                "AUG", "SEPT", "OCT", "NOV", "DEC" };
 
+        historyListView = (ListView) getView().findViewById(R.id.history_list);
+
+
+        arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, monthsArray);
+
+
+        historyListView.setAdapter(arrayAdapter);
     }
 
 

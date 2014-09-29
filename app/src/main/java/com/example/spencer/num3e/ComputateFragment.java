@@ -91,6 +91,7 @@ public class ComputateFragment  extends Fragment {
 
 
 
+
         /*ScrollView rl = (ScrollView) getView().findViewById(R.id.ScrollView2);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 */

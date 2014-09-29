@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -59,7 +60,7 @@ public class MyActivity extends ActionBarActivity {
         fragmentTransactionBottom.add(R.id.bottom, computateFragment);
         fragmentTransactionBottom.commit();
 
-        ScrollView rl = (ScrollView) findViewById(R.id.ScrollView2);
+        LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayout3);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 
 

@@ -59,6 +59,10 @@ public class MyActivity extends ActionBarActivity {
         fragmentTransactionBottom.add(R.id.bottom, computateFragment);
         fragmentTransactionBottom.commit();
 
+        ScrollView rl = (ScrollView) findViewById(R.id.ScrollView2);
+        rl.setBackgroundColor(getResources().getColor(R.color.white));
+
+
     }
 
     //this is so that if we are in the computate fragemnt, when we press back

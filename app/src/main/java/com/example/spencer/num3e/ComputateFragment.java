@@ -23,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,9 +91,9 @@ public class ComputateFragment  extends Fragment {
 
 
 
-        ScrollView rl = (ScrollView) getView().findViewById(R.id.ScrollView);
+        /*ScrollView rl = (ScrollView) getView().findViewById(R.id.ScrollView2);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
-
+*/
 
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
@@ -411,13 +412,13 @@ public class ComputateFragment  extends Fragment {
                 }
 
                 if(arraySize == 0){
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash);
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + " " + cellNumber );
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
                     SavedListOfWordsArrayIndex ++;
                 }else {
                     SavedListOfWordsArrayIndex++;
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash);
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + " " + cellNumber );
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
 

@@ -54,7 +54,7 @@ public class HistoryFragment extends Fragment {
         if (arraySize >= 0){
 
 
-            for(int i = 0; i <= arraySize; i++){
+            for(int i = arraySize; i != 0; i--){
 
 
                 //monthsArray[i] = (sharedpreferences.getString("array_" + i, null));
@@ -68,8 +68,6 @@ public class HistoryFragment extends Fragment {
 
 
         arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, savedWords);
-
-
         historyListView.setAdapter(arrayAdapter);
     }
 

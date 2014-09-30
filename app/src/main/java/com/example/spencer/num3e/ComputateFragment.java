@@ -124,7 +124,7 @@ public class ComputateFragment  extends Fragment {
                         cellNumber = cellNumber.replaceAll("\\)", "");
                         cellNumber = cellNumber.replaceAll(" ","");
 
-                        finishedWordWithDash = cellNumber;
+                         finishedWordWithDash = cellNumber;
                         editText.setText(" ");
 
                         //this is to get the combinations of numbers to check with the txt file
@@ -398,11 +398,18 @@ public class ComputateFragment  extends Fragment {
         @Override
         protected void onPostExecute(String result) {
 
+
             //this is to save searched numbers
             if(!(finishedWordWithDash.equals("Sorry mate."))){
 
+                int arraySize;
                 SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                int arraySize = (sharedpreferences.getInt(HistoryArraySize, 0));
+                boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
+                if(hasSavedContents) {
+                    arraySize = (sharedpreferences.getInt(HistoryArraySize, 0));
+                }else {
+                    arraySize = 0;
+                }
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                // SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
@@ -410,16 +417,20 @@ public class ComputateFragment  extends Fragment {
                 if(firstTimeActivated ){
                     SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
                     firstTimeActivated = false;
+                  /*  editor.putString("array_" + 100, "cock");
+                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
+                    editor.apply();*/
+                    //SavedListOfWordsArrayIndex ++;
                 }
 
                 if(arraySize == 0){
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + " " + cellNumber );
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
                     SavedListOfWordsArrayIndex ++;
                 }else {
                     SavedListOfWordsArrayIndex++;
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + " " + cellNumber );
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
 

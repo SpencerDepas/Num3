@@ -20,7 +20,8 @@ Outstanding tasks:
 
 Desired Functions:
 -----------------
-* I would like to add a dictionary function 
+* I would like to add a dictionary function
+* Add important numbers that work well to listView, only show before you have yuour own.
 * I would like to add a reshuffle button, it will give a different set of words for the same number
 * I would like to add an animation that shows words turning into numbers, perhaps like a slot 
 machine

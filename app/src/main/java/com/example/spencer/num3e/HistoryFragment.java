@@ -1,19 +1,12 @@
 package com.example.spencer.num3e;
 
-import android.app.Fragment;
+
 import android.app.ListFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import android.widget.RelativeLayout;
-
 import java.util.ArrayList;
 
 /**
@@ -33,27 +26,80 @@ public class HistoryFragment extends ListFragment {
         MyActivity.inHistoryFragment = true;
 
 
-
         ArrayList<String> savedWords = new ArrayList<String>();
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         historyListView = (ListView) getView().findViewById(R.id.history_list);
+        String[] mySecondStringArray = new String[0];
 
-        int arraySize = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0));
-        if (arraySize >= 0){
-            for(int i = arraySize; i != 0; i--){
-                savedWords.add(sharedpreferences.getString("array_" + i, null));
+        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
 
+        if(hasSavedContents) {
+
+            int arraySize = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0));
+
+            if (arraySize >= 0) {
+                for (int i = arraySize ; i != 0; i--) {
+                    savedWords.add(sharedpreferences.getString("array_" + i, null));
+
+                }
             }
+
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                    android.R.layout.simple_list_item_1, savedWords);
+            setListAdapter(adapter);
+        }else{
+            String[] tempStringArray = new String[]{"Android", "iPhone", "WindowsMobile",
+                    "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+                    "Linux", "OS/2"};
+
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                    android.R.layout.simple_list_item_1, tempStringArray);
+            setListAdapter(adapter);
         }
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, savedWords);
-        setListAdapter(adapter);
     }
 
 
 }
+
+
+   /*     ArrayList<String> savedWords = new ArrayList<String>();
+        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+       // historyListView = (ListView) getView().findViewById(R.id.history_list);
+
+
+        boolean containsHistory = sharedpreferences.contains(ComputateFragment.HistoryArraySize);
+        String[] stringArrayOfHistory;
+
+        if(containsHistory) {
+            int arraySize = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0));
+            stringArrayOfHistory = new String[arraySize];
+
+
+            if (arraySize >= 0) {
+                for (int i = arraySize; i != 0; i--) {
+                    savedWords.add(sharedpreferences.getString("array_" + i, null));
+                    stringArrayOfHistory[i] = sharedpreferences.getString("array_" + i, null);
+                }
+            }
+
+            String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+                    "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+                    "Linux", "OS/2" };
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                    android.R.layout.simple_list_item_1, stringArrayOfHistory);
+            setListAdapter(adapter);
+        }
+
+
+
+
+    }
+
+
+}*/
 
 
     /*@Override

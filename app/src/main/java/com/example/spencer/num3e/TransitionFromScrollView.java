@@ -5,12 +5,17 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
  * Created by spencer on 9/30/2014.
  */
 public class TransitionFromScrollView extends ActionBarActivity{
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +27,6 @@ public class TransitionFromScrollView extends ActionBarActivity{
 
         LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayout3);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
-
-
 
 
         FragmentManager fragmentManagerTop = getFragmentManager();
@@ -40,6 +43,10 @@ public class TransitionFromScrollView extends ActionBarActivity{
         HistoryFragment historyFragment = new HistoryFragment();
         fragmentTransactionBottom.add(R.id.bottom, historyFragment);
         fragmentTransactionBottom.commit();
+
+        /*ImageView imageTwo = (ImageView) findViewById(R.id.imageView3);
+        imageTwo.setVisibility(View.INVISIBLE);
+        imageTwo.setClickable(false);*/
 
 
 

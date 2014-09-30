@@ -34,6 +34,7 @@ import java.io.InputStreamReader;
 
 public class MyActivity extends ActionBarActivity {
 
+    static boolean scrollViewState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

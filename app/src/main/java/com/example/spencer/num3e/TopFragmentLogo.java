@@ -19,6 +19,7 @@ public class TopFragmentLogo extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,10 +41,21 @@ public class TopFragmentLogo extends Fragment {
 
         final ImageView image = (ImageView) getView().findViewById(R.id.imageView3);
 
+        if(!MyActivity.scrollViewState){
+            ImageView imageTwo = (ImageView) getView().findViewById(R.id.imageView3);
+            imageTwo.setVisibility(View.INVISIBLE);
+            imageTwo.setClickable(false);
+        }
+
+
         image.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v){
+
+
+
+                MyActivity.scrollViewState = false;
 
                 Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
                 startActivity(intent);

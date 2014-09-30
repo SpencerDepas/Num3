@@ -5,7 +5,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:windowActionBar="false"
-    android:windowSoftInputMode="adjustPan"
     android:id="@+id/LinearLayout3"
     >
 

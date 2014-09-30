@@ -16,6 +16,7 @@ Outstanding tasks:
 * change color of history button 
 * when you press the history button, the computation continues to load.
 * After a full list of saved history it deletes the first one created.
+* add fragment animations
 
 
 Desired Functions:

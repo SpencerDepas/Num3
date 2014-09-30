@@ -38,7 +38,7 @@ public class MyActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_container);
+        setContentView(R.layout.fragment_container_with_scroll_view);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -49,7 +49,7 @@ public class MyActivity extends ActionBarActivity {
         FragmentTransaction fragmentTransactionTop = fragmentManagerTop.beginTransaction();
 
         TopFragmentLogo fragmentTop = new TopFragmentLogo();
-        fragmentTransactionTop.add(R.id.top, fragmentTop);
+        fragmentTransactionTop.add(R.id.topScrollView, fragmentTop);
         fragmentTransactionTop.commit();
 
 
@@ -57,12 +57,12 @@ public class MyActivity extends ActionBarActivity {
         FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
 
         ComputateFragment computateFragment = new ComputateFragment();
-        fragmentTransactionBottom.add(R.id.bottom, computateFragment);
+        fragmentTransactionBottom.add(R.id.bottomScrollView, computateFragment);
         fragmentTransactionBottom.commit();
 
-        LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayout3);
-        rl.setBackgroundColor(getResources().getColor(R.color.white));
 
+        ScrollView rl = (ScrollView) findViewById(R.id.ScrollView);
+        rl.setBackgroundColor(getResources().getColor(R.color.white));
 
     }
 
@@ -82,7 +82,7 @@ public class MyActivity extends ActionBarActivity {
 
             ComputateFragment computateFragment = new ComputateFragment();
 
-            fragmentTransactionBottom.replace(R.id.bottom, computateFragment);
+            fragmentTransactionBottom.replace(R.id.bottomScrollView, computateFragment);
             fragmentTransactionBottom.commit();
 
         }else{

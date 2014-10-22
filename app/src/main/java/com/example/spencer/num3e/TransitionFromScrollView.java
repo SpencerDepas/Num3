@@ -5,8 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
@@ -43,13 +41,6 @@ public class TransitionFromScrollView extends ActionBarActivity{
         HistoryFragment historyFragment = new HistoryFragment();
         fragmentTransactionBottom.add(R.id.bottom, historyFragment);
         fragmentTransactionBottom.commit();
-
-        /*ImageView imageTwo = (ImageView) findViewById(R.id.imageView3);
-        imageTwo.setVisibility(View.INVISIBLE);
-        imageTwo.setClickable(false);*/
-
-
-
 
     }
 }

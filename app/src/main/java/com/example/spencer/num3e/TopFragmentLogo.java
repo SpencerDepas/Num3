@@ -1,5 +1,6 @@
 package com.example.spencer.num3e;
 
+import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -9,8 +10,12 @@ import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 /**
  * Created by spencer on 9/22/2014.
@@ -38,6 +43,8 @@ public class TopFragmentLogo extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        RelativeLayout f1 = (RelativeLayout) getView().findViewById(R.id.RelativeLayout);
+        f1.setBackgroundColor(getResources().getColor(R.color.MediumTurquoise));
 
         final ImageView image = (ImageView) getView().findViewById(R.id.imageView3);
 
@@ -57,15 +64,10 @@ public class TopFragmentLogo extends Fragment {
 
                 MyActivity.scrollViewState = false;
 
+
                 Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
                 startActivity(intent);
 
-              /*  FragmentManager fragmentManagerBottom = getFragmentManager();
-                FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
-
-                HistoryFragment historyFragment = new HistoryFragment();
-                fragmentTransactionBottom.replace(R.id.bottom, historyFragment, TAG_FRAGMENT);
-                fragmentTransactionBottom.commit();*/
             }
 
 

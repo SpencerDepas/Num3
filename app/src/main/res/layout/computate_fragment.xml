@@ -19,8 +19,8 @@
             android:hint="@string/text_view_hint"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:textColor="#345953"
-            android:textColorHint="#345953"
+            android:textColor="@color/MediumTurquoise"
+            android:textColorHint="@color/MediumTurquoise"
             android:ems="10"
             android:maxLength="16"
             android:id="@+id/editText"
@@ -33,7 +33,6 @@
             android:text="@string/buttonTrue"
             android:textColor="@color/white"
             android:id="@+id/button"
-            android:background="@drawable/mybutton"
             />
 
         <ProgressBar

@@ -86,6 +86,9 @@ public class ComputateFragment  extends Fragment {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
 
+        CreateHashTable task = new CreateHashTable();
+        task.execute();
+
 
         editText.addTextChangedListener(watch);
 
@@ -270,7 +273,9 @@ public class ComputateFragment  extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             //this is for buffered reader and going through txt files ect
-            CreateHashTable task = new CreateHashTable();
+
+
+            AS_HashTable task = new AS_HashTable();
             task.execute();
         }
 

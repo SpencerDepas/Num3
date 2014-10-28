@@ -1,7 +1,11 @@
 package com.example.spencer.num3e;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * Created by spencer on 9/22/2014.
@@ -16,7 +21,8 @@ import android.widget.RelativeLayout;
 public class TopFragmentLogo extends Fragment {
 
     int PICK_CONTACT = 0;
-
+      // The request code
+    static final int PICK_CONTACT_REQUEST = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,26 +81,65 @@ public class TopFragmentLogo extends Fragment {
             @Override
             public void onClick(View v) {
 
-
-
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-            startActivityForResult(intent,PICK_CONTACT );
-
-
-
-
-
-
-
+                pickContact();
 
             }
 
 
         });
 
+
     }
 
+
+
+    private void pickContact() {
+
+
+        Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
+        pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+        startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+        getActivity().setResult(Activity.RESULT_OK);
+
+
+
+
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // Check which request we're responding to
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == getActivity().RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+
+                Uri contactUri = data.getData();
+                String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
+
+                Cursor cursor = getActivity().getContentResolver()
+                        .query(contactUri, projection, null, null, null);
+                cursor.moveToFirst();
+
+                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String number = cursor.getString(column);
+
+
+
+                Context context = getActivity().getApplicationContext();
+
+                Toast toast = Toast.makeText(context, number, Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
+        }
+    }
 
 
 

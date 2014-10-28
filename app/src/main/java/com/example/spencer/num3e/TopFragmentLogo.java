@@ -11,6 +11,8 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -95,6 +97,8 @@ public class TopFragmentLogo extends Fragment {
 
     private void pickContact() {
 
+        EditText editText = (EditText) getActivity().findViewById(R.id.editText);
+        editText.setText("");
 
         Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
         pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
@@ -120,6 +124,8 @@ public class TopFragmentLogo extends Fragment {
 
                 // Do something with the contact here (bigger example below)
 
+
+
                 Uri contactUri = data.getData();
                 String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
 
@@ -131,11 +137,13 @@ public class TopFragmentLogo extends Fragment {
                 String number = cursor.getString(column);
 
 
+                Button button = (Button) getActivity().findViewById(R.id.button);
 
-                Context context = getActivity().getApplicationContext();
 
-                Toast toast = Toast.makeText(context, number, Toast.LENGTH_SHORT);
-                toast.show();
+                ComputateFragment.computeContactNumber(number, button);
+                projection[0] = "";
+
+
 
             }
         }

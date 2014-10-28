@@ -1,5 +1,6 @@
 package com.example.spencer.num3e;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import android.graphics.Color;
+import android.widget.Toast;
 
 /**
  * Created by spencer on 9/22/2014.
@@ -48,7 +50,7 @@ public class ComputateFragment  extends Fragment {
 
     final int startOfNumberIndexFromTxt = 23;
     private ProgressBar spinner;
-    private EditText editText;
+    static EditText editText;
     static boolean pushOrClear = true;
 
     //this is for saving already searched numbers
@@ -72,13 +74,14 @@ public class ComputateFragment  extends Fragment {
 
 
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         spinner = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
+        //final Button button = (Button) getActivity().findViewById(R.id.button);
         final Button button = (Button) getActivity().findViewById(R.id.button);
-
         editText = (EditText) getActivity().findViewById(R.id.editText);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
 
@@ -616,6 +619,16 @@ public class ComputateFragment  extends Fragment {
         }
 
     }
+
+    public static void computeContactNumber(String fromContactsNumber, Button button) {
+
+        editText.setText(fromContactsNumber);
+        //editText.setVisibility(View.INVISIBLE);
+        button.performClick();
+
+    }
+
+
     //public static String historyStringArray = "transformedNumber";
     //public static ArrayList<String> returnedNumbers = new ArrayList<String>();
 

@@ -30,6 +30,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="Push"
             android:text="@string/buttonTrue"
             android:textColor="@color/white"
             android:id="@+id/button"

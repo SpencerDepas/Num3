@@ -56,6 +56,9 @@ public class ComputateFragment  extends Fragment {
     public static final String HistoryArraySize = "arrayIndex";
 
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +78,7 @@ public class ComputateFragment  extends Fragment {
 
         spinner = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
         final Button button = (Button) getActivity().findViewById(R.id.button);
+
         editText = (EditText) getActivity().findViewById(R.id.editText);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
 

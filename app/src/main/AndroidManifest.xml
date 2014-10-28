@@ -3,7 +3,11 @@
     package="com.example.spencer.num3e" >
 
 
+
     <uses-sdk android:minSdkVersion="11"/>
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" >
+    </uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"

@@ -1,28 +1,21 @@
 package com.example.spencer.num3e;
 
-import android.app.ActivityOptions;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 /**
  * Created by spencer on 9/22/2014.
  */
 public class TopFragmentLogo extends Fragment {
 
-
+    int PICK_CONTACT = 0;
 
 
     @Override
@@ -46,20 +39,24 @@ public class TopFragmentLogo extends Fragment {
         RelativeLayout f1 = (RelativeLayout) getView().findViewById(R.id.RelativeLayout);
         f1.setBackgroundColor(getResources().getColor(R.color.MediumTurquoise));
 
-        final ImageView image = (ImageView) getView().findViewById(R.id.imageView3);
+        final ImageView imageHistory = (ImageView) getView().findViewById(R.id.imageHistory);
+
+        final ImageView imageGetContact = (ImageView) getView().findViewById(R.id.to_contacts);
 
         if(!MyActivity.scrollViewState){
-            ImageView imageTwo = (ImageView) getView().findViewById(R.id.imageView3);
+            ImageView imageTwo = (ImageView) getView().findViewById(R.id.imageHistory);
             imageTwo.setVisibility(View.INVISIBLE);
             imageTwo.setClickable(false);
+
+            imageGetContact.setVisibility(View.INVISIBLE);
+            imageGetContact.setClickable(false);
         }
 
 
-        image.setOnClickListener(new View.OnClickListener(){
+        imageHistory.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v){
-
+            public void onClick(View v) {
 
 
                 MyActivity.scrollViewState = false;
@@ -71,7 +68,36 @@ public class TopFragmentLogo extends Fragment {
             }
 
 
-    });
+        });
+
+        imageGetContact.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+            startActivityForResult(intent,PICK_CONTACT );
+
+
+
+
+
+
+
+
+            }
+
+
+        });
 
     }
+
+
+
+
+
+
 }

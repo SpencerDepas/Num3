@@ -97,8 +97,12 @@ public class TopFragmentLogo extends Fragment {
 
     private void pickContact() {
 
-        EditText editText = (EditText) getActivity().findViewById(R.id.editText);
-        editText.setText("");
+        //clear may need to activate if contacts is pressed consequlivtly
+        if(!ComputateFragment.pushOrClear){
+            Button button = (Button) getActivity().findViewById(R.id.button);
+            button.performClick();
+        }
+
 
         Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
         pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
@@ -106,7 +110,8 @@ public class TopFragmentLogo extends Fragment {
         getActivity().setResult(Activity.RESULT_OK);
 
 
-
+        EditText editText = (EditText) getActivity().findViewById(R.id.editText);
+        editText.setText("");
 
 
     }

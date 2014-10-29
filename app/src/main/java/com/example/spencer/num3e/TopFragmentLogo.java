@@ -15,7 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.example.spencer.num3e.R.color.Gray;
 
 /**
  * Created by spencer on 9/22/2014.
@@ -42,6 +45,11 @@ public class TopFragmentLogo extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+        TextView textView = (TextView) getView().findViewById(R.id.greybar);
+        //textView.setBackgroundResource(R.color.white);
+        textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
 
 
         RelativeLayout f1 = (RelativeLayout) getView().findViewById(R.id.RelativeLayout);

@@ -93,6 +93,8 @@ public class ComputateFragment  extends Fragment {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
 
+
+
         CreateHashTable task = new CreateHashTable();
         task.execute();
 
@@ -101,6 +103,8 @@ public class ComputateFragment  extends Fragment {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+
 
                 //button status,
                 if (pushOrClear) {
@@ -133,6 +137,7 @@ public class ComputateFragment  extends Fragment {
 
 
                 } else {
+
                     //for when the button is in clear mode
                     String buttonTrue = getResources().getString(R.string.buttonTrue);
                     editText.setText("");
@@ -330,8 +335,8 @@ public class ComputateFragment  extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            AS_HashTable task = new AS_HashTable();
-            task.execute();
+
+
         }
     }
 
@@ -354,6 +359,7 @@ public class ComputateFragment  extends Fragment {
                     wordReturnedFromTxtFile.add(number + "," + word);
                 }
             }
+
 
 
             //renews if you want to run again
@@ -647,11 +653,10 @@ public class ComputateFragment  extends Fragment {
 
 
 
-  /*  public void toaster(String text) {
-        Context context = getView().getApplicationContext();
+    public void toaster(String text) {
         int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(this.getActivity(), text, duration);
         toast.show();
-    }*/
+    }
 
 }

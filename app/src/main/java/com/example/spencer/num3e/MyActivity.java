@@ -65,6 +65,8 @@ public class MyActivity extends ActionBarActivity {
         ScrollView rl = (ScrollView) findViewById(R.id.ScrollView);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 
+
+
     }
 
     //this is so that if we are in the computate fragemnt, when we press back

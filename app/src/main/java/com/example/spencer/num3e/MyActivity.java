@@ -1,5 +1,6 @@
 package com.example.spencer.num3e;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,17 +34,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
-public class MyActivity extends ActionBarActivity {
+public class MyActivity extends Activity {
 
     static boolean scrollViewState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();*/
+
         setContentView(R.layout.fragment_container_with_scroll_view);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+
 
 
 

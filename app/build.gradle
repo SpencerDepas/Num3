@@ -5,8 +5,8 @@ android {
     buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId 'com.example.spencer.num3e'
-        minSdkVersion 11
-        targetSdkVersion 20
+        minSdkVersion 13
+        targetSdkVersion 19
         versionCode 1
         versionName '1.0'
     }

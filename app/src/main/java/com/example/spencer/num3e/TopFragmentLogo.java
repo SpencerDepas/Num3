@@ -48,12 +48,11 @@ public class TopFragmentLogo extends Fragment {
 
 
         TextView textView = (TextView) getView().findViewById(R.id.greybar);
-        //textView.setBackgroundResource(R.color.white);
         textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
 
 
         RelativeLayout f1 = (RelativeLayout) getView().findViewById(R.id.RelativeLayout);
-        f1.setBackgroundColor(getResources().getColor(R.color.MediumTurquoise));
+        f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
         final ImageView imageHistory = (ImageView) getView().findViewById(R.id.imageHistory);
 

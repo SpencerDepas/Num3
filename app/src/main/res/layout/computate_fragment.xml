@@ -3,7 +3,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
     android:layout_width="fill_parent"
+    android:layout_marginTop="30dp"
     android:id="@+id/relitiveLayout">
 
     <LinearLayout
@@ -19,8 +22,8 @@
             android:hint="@string/text_view_hint"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:textColor="@color/MediumTurquoise"
-            android:textColorHint="@color/MediumTurquoise"
+            android:textColor="@color/SkyBlue"
+            android:textColorHint="@color/SkyBlue"
             android:ems="10"
             android:maxLength="16"
             android:id="@+id/editText"

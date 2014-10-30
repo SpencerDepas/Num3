@@ -87,7 +87,7 @@ public class ComputateFragment  extends Fragment {
 
 
         button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
-        button.setBackgroundColor(Color.CYAN);
+        button.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
 
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(

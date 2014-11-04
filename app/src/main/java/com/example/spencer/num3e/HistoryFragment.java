@@ -29,7 +29,7 @@ public class HistoryFragment extends ListFragment {
         ArrayList<String> savedWords = new ArrayList<String>();
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         historyListView = (ListView) getView().findViewById(R.id.history_list);
-        String[] mySecondStringArray = new String[0];
+
 
         boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
 

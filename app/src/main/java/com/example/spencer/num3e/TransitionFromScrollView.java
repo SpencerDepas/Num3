@@ -1,5 +1,6 @@
 package com.example.spencer.num3e;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.LinearLayout;
 /**
  * Created by spencer on 9/30/2014.
  */
-public class TransitionFromScrollView extends ActionBarActivity{
+public class TransitionFromScrollView extends Activity {
 
 
 
@@ -20,8 +21,7 @@ public class TransitionFromScrollView extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+
 
         LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayout3);
         rl.setBackgroundColor(getResources().getColor(R.color.white));

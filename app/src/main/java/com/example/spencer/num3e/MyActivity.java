@@ -66,7 +66,7 @@ public class MyActivity extends Activity {
         fragmentTransactionBottom.commit();
 
 
-        ScrollView rl = (ScrollView) findViewById(R.id.ScrollView);
+        LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayoutContainer);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
 
 

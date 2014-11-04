@@ -417,6 +417,7 @@ public class ComputateFragment  extends Fragment {
         //public static int SavedListOfWordsArrayIndex = 0;
         boolean firstTimeActivated = true;
 
+        boolean firstTimeT = true;
 
         @Override
         protected void onPostExecute(String result) {
@@ -425,20 +426,52 @@ public class ComputateFragment  extends Fragment {
             //this is to save searched numbers
             if(!(finishedWordWithDash.equals("Sorry mate."))){
 
+                int tempInt = 0;
+                String tempIntKey = "tempIntKKey";
+
+
+
                 int arraySize;
                 SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
-                if(hasSavedContents) {
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                /*boolean hasSavedContentsTest = (sharedpreferences.getInt(tempIntKey, 0)) > 0;
+
+
+                if(!sharedpreferences.contains(tempIntKey)){
+
+                    editor.putInt(tempIntKey, tempInt);
+                    editor.apply();
+                    //toaster("COCK" + "");
+                }else{
+                    int retirevedInt = sharedpreferences.getInt(tempIntKey, 0);
+                    retirevedInt ++;
+                    editor.putInt(tempIntKey, retirevedInt);
+                    editor.apply();
+                    toaster(retirevedInt + "");
+                    //toaster(retirevedInt + "");
+                }
+
+                boolean hasSavedContents = (sharedpreferences.getInt(HistoryArraySize, 0)) > 0;*/
+
+                //toaster("entert ther matrix " + hasSavedContents);
+
+                if(sharedpreferences.contains(HistoryArraySize)) {
+
                     arraySize = (sharedpreferences.getInt(HistoryArraySize, 0));
+
                 }else {
                     arraySize = 0;
                 }
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+
 
                 // SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
 
                 if(firstTimeActivated ){
+
+
                     SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
+                    // this is now 0
                     firstTimeActivated = false;
                   /*  editor.putString("array_" + 100, "cock");
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
@@ -446,18 +479,24 @@ public class ComputateFragment  extends Fragment {
                     //SavedListOfWordsArrayIndex ++;
                 }
 
-                if(arraySize == 0){
+
+                if(!sharedpreferences.contains(HistoryArraySize)){
+                    toaster(arraySize + "");
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
                     SavedListOfWordsArrayIndex ++;
                 }else {
+
                     SavedListOfWordsArrayIndex++;
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
+                    //toaster("cock + 1");
 
                 }
+                /*SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
+                toaster("entert ther matrix " + SavedListOfWordsArrayIndex);*/
             }
 
 

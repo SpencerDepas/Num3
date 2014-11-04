@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MyActivity extends Activity {
@@ -44,10 +50,27 @@ public class MyActivity extends Activity {
         /*getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();*/
 
-        setContentView(R.layout.fragment_container_with_scroll_view);
+        //setContentView(R.layout.fragment_container_with_scroll_view);
+
+        setContentView(R.layout.clearfaun);
+        RelativeLayout clearf = (RelativeLayout) findViewById(R.id.clearfaunrl);
+        clearf.setBackgroundColor(getResources().getColor(R.color.white));
+
+        Calendar c = Calendar.getInstance();
+        int seconds = c.get(Calendar.SECOND);
 
 
+        int secondsDelayed = 1;
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                startNewActivity();
+                finish();
+            }
+        }, secondsDelayed * 1000);
 
+
+        //toaster("hi");
+        /*setContentView(R.layout.fragment_container_with_scroll_view);
 
 
         FragmentManager fragmentManagerTop = getFragmentManager();
@@ -67,9 +90,15 @@ public class MyActivity extends Activity {
 
 
         LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayoutContainer);
-        rl.setBackgroundColor(getResources().getColor(R.color.white));
+        rl.setBackgroundColor(getResources().getColor(R.color.white));*/
 
 
+
+    }
+
+    public void startNewActivity(){
+        Intent intent = new Intent(MyActivity.this, CreateFragments.class);
+        MyActivity.this.startActivity(intent);
 
     }
 
@@ -95,6 +124,15 @@ public class MyActivity extends Activity {
         }else{
             finish();
         }
+    }
+
+
+
+    public void toaster(String text) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 }

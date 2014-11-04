@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.LinearLayout;
 
 /**
- * Created by spencer on 9/30/2014.
+ * Created by spencer on
+ * 9/30/2014.
  */
 public class TransitionFromScrollView extends Activity {
 

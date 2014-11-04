@@ -53,7 +53,7 @@ public class CreateFragments extends Activity {
 
         if (inHistoryFragment) {
 
-            MyActivity.inHistoryFragment = false;
+            inHistoryFragment = false;
 
             FragmentManager fragmentManagerBottom = getFragmentManager();
             FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();

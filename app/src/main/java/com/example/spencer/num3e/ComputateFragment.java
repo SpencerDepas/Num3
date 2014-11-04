@@ -482,7 +482,7 @@ public class ComputateFragment  extends Fragment {
 
                 if(!sharedpreferences.contains(HistoryArraySize)){
                     toaster(arraySize + "");
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber);
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
                     SavedListOfWordsArrayIndex ++;
@@ -615,6 +615,8 @@ public class ComputateFragment  extends Fragment {
             if(!(finishedWordWithDash.equals("Sorry mate."))){
 
                 int arraySize;
+
+
                 SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
                 if(hasSavedContents) {

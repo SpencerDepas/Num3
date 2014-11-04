@@ -23,7 +23,7 @@ public class HistoryFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        MyActivity.inHistoryFragment = true;
+        CreateFragments.inHistoryFragment = true;
 
 
         ArrayList<String> savedWords = new ArrayList<String>();

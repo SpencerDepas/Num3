@@ -468,7 +468,7 @@ public class ComputateFragment  extends Fragment {
 
 
                 if(!sharedpreferences.contains(HistoryArraySize)){
-                    toaster(arraySize + "");
+
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber);
                     editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
                     editor.apply();
@@ -534,10 +534,10 @@ public class ComputateFragment  extends Fragment {
 
 
 
-    public void toaster(String text) {
+   /* public void toaster(String text) {
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(this.getActivity(), text, duration);
         toast.show();
-    }
+    }*/
 
 }

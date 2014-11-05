@@ -28,7 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import android.widget.Toast;
+
 
 /**
  * Created by spencer
@@ -418,7 +418,7 @@ public class ComputateFragment  extends Fragment {
 
 
 
-                int arraySize;
+
                 SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -443,13 +443,7 @@ public class ComputateFragment  extends Fragment {
 
                 //toaster("entert ther matrix " + hasSavedContents);
 
-                if(sharedpreferences.contains(HistoryArraySize)) {
 
-                    arraySize = (sharedpreferences.getInt(HistoryArraySize, 0));
-
-                }else {
-                    arraySize = 0;
-                }
 
 
                 // SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));

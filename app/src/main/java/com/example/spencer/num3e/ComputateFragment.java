@@ -1,6 +1,5 @@
 package com.example.spencer.num3e;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,12 +28,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
-
-import android.graphics.Color;
 import android.widget.Toast;
 
 /**
- * Created by spencer on 9/22/2014.
+ * Created by spencer
+ * on 9/22/2014.
  */
 
 
@@ -58,7 +56,7 @@ public class ComputateFragment  extends Fragment {
     public static final String HistoryArraySize = "arrayIndex";
 
 
-
+    View view;
 
 
     @Override
@@ -66,7 +64,7 @@ public class ComputateFragment  extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.computate_fragment,
+        view = inflater.inflate(R.layout.computate_fragment,
                 container, false);
 
         return view;
@@ -131,8 +129,6 @@ public class ComputateFragment  extends Fragment {
                         //this is to get the combinations of numbers to check with the txt file
                         ActivateASTask();
 
-                    } else if (editText.length() < 2) {
-                        //toaster("Must be more than one digit");
                     }
 
 
@@ -259,16 +255,16 @@ public class ComputateFragment  extends Fragment {
         protected String doInBackground(String... urls) {
 
             int endBlockNumberLength = cellNumber.length() - 1;
-            final  int combinationsPerBlock = 2;
+
 
             theNumberCombos.add(cellNumber);
 
             //this is what creates every number combination of the input number
             // 123
             //12
-            //23
+            //23    i < theNumberCombos.size() && endBlockNumberLength > 1
             //1 , 2, 3
-            for(int i = 0; i < theNumberCombos.size() && 0 < combinationsPerBlock && endBlockNumberLength > 1; i++){
+            for(int i = 0; i < theNumberCombos.size() && endBlockNumberLength > 1 ; i++){
 
                 theNumberCombos.add(cellNumber.substring(i, i + endBlockNumberLength));
 
@@ -342,13 +338,6 @@ public class ComputateFragment  extends Fragment {
 
     private class AS_HashTable extends AsyncTask<String, Void, String> {
 
-
-        public String sCurrentLine = "";
-
-        public BufferedReader br;
-        final AssetManager assetManager = getActivity().getAssets();
-
-
         @Override
         protected String doInBackground(String... urls) {
 
@@ -417,7 +406,7 @@ public class ComputateFragment  extends Fragment {
         //public static int SavedListOfWordsArrayIndex = 0;
         boolean firstTimeActivated = true;
 
-        boolean firstTimeT = true;
+
 
         @Override
         protected void onPostExecute(String result) {
@@ -426,8 +415,6 @@ public class ComputateFragment  extends Fragment {
             //this is to save searched numbers
             if(!(finishedWordWithDash.equals("Sorry mate."))){
 
-                int tempInt = 0;
-                String tempIntKey = "tempIntKKey";
 
 
 
@@ -507,7 +494,7 @@ public class ComputateFragment  extends Fragment {
 
 
 
-            final Button button = (Button) getView().findViewById(R.id.button);
+            final Button button = (Button) view.findViewById(R.id.button);
             button.setText("Clear");
             button.setEnabled(true);
 
@@ -518,154 +505,7 @@ public class ComputateFragment  extends Fragment {
 
 
 
-    // buffered reader, this is what enters the txt file and returns words
-    private class AS extends AsyncTask<String, Void, String> {
 
-
-        public String sCurrentLine = "";
-
-        public BufferedReader br;
-        final AssetManager assetManager = getActivity().getAssets();
-
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-            try {
-                for(String combo : theNumberCombos) {
-
-                    InputStream input = assetManager.open("wordlist.txt");
-                    br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-
-                    for ( ; (sCurrentLine = br.readLine()) != null; ) {
-
-                        if (combo.equals(sCurrentLine.substring(startOfNumberIndexFromTxt))) {
-
-                            wordReturnedFromTxtFile.add(sCurrentLine);
-                            break;
-                        }
-                    }
-                    input.close();
-                }
-
-                //renews if you want to run again
-                theNumberCombos.clear();
-
-                //this is for if there are no returned words.
-                if(!wordReturnedFromTxtFile.isEmpty()) {
-                    for (String returnedWord : wordReturnedFromTxtFile) {
-
-                        int sNumberEndIndex = returnedWord.indexOf(" ");
-                        int sNumberStartIndex = returnedWord.indexOf(returnedWord.substring(0, sNumberEndIndex));
-                        String numberBeforeItBecomesAWord = returnedWord.substring(sNumberStartIndex, sNumberEndIndex);
-                        String onlyWord = returnedWord.substring(23);
-
-                        finishedWordWithDash = finishedWordWithDash.replace(onlyWord, "-" + numberBeforeItBecomesAWord + "-");
-
-
-                        finishedWordWithDash = finishedWordWithDash.replace(" ", "");
-                        //removes white space at start and end of word
-                        if (finishedWordWithDash.charAt(0) == '-') {
-                            finishedWordWithDash = finishedWordWithDash.substring(1, finishedWordWithDash.length());
-                        }
-                        if (finishedWordWithDash.charAt(finishedWordWithDash.length() - 1) == '-') {
-                            finishedWordWithDash = finishedWordWithDash.substring(0, finishedWordWithDash.length() - 1);
-                        }
-                    }
-                }else{
-                    finishedWordWithDash = "Sorry mate.";
-                }
-
-                while(true){
-                    if(finishedWordWithDash.contains("--")){
-                        finishedWordWithDash = finishedWordWithDash.replace("--", "-");
-                    }else{
-                        break;
-                    }
-                }
-
-                //renews if you want to run again
-                wordReturnedFromTxtFile.clear();
-
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-
-
-        //public static int makeStringUnique = 0;
-        //public static final String NumberOne = "transformedNumber" + Integer.toString(makeStringUnique);
-        //int historyOfSearchedNumbersCounter = 0;
-        //public static final int SavedListOfWordsArrayIndex = 0;
-        //public static final String historyOfSearchedNumbersCounter = "arrayIndex";
-        //public String[] returnedNumbers = new String[30];
-
-
-        //public static int SavedListOfWordsArrayIndex = 0;
-        boolean firstTimeActivated = true;
-
-
-        @Override
-        protected void onPostExecute(String result) {
-
-
-            //this is to save searched numbers
-            if(!(finishedWordWithDash.equals("Sorry mate."))){
-
-                int arraySize;
-
-
-                SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
-                if(hasSavedContents) {
-                    arraySize = (sharedpreferences.getInt(HistoryArraySize, 0));
-                }else {
-                    arraySize = 0;
-                }
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-
-               // SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
-
-                if(firstTimeActivated ){
-                    SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
-                    firstTimeActivated = false;
-                  /*  editor.putString("array_" + 100, "cock");
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
-                    editor.apply();*/
-                    //SavedListOfWordsArrayIndex ++;
-                }
-
-                if(arraySize == 0){
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
-                    editor.apply();
-                    SavedListOfWordsArrayIndex ++;
-                }else {
-                    SavedListOfWordsArrayIndex++;
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
-                    editor.apply();
-
-                }
-            }
-
-
-
-            spinner.setVisibility(View.GONE);
-            editText.setGravity(Gravity.CENTER);
-            editText.setText(finishedWordWithDash);
-
-
-
-            final Button button = (Button) getView().findViewById(R.id.button);
-            button.setText("Clear");
-            button.setEnabled(true);
-
-        }
-
-    }
 
     public static void computeContactNumber(String fromContactsNumber, Button button) {
 

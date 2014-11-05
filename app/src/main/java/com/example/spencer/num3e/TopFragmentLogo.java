@@ -2,7 +2,6 @@ package com.example.spencer.num3e;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,52 +15,55 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static com.example.spencer.num3e.R.color.Gray;
+
 
 /**
- * Created by spencer on 9/22/2014.
+ * Created by spencer on
+ * 9/22/2014.
  */
 public class TopFragmentLogo extends Fragment {
 
-    int PICK_CONTACT = 0;
+
       // The request code
     static final int PICK_CONTACT_REQUEST = 0;
+
+
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.top_fragment,
-                container, false);
+        view = inflater.inflate(R.layout.top_fragment, container, false);
+
+
 
         return view;
     }
 
 
-    private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
 
-        TextView textView = (TextView) getView().findViewById(R.id.greybar);
+        TextView textView = (TextView) view.findViewById(R.id.greybar);
         textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
 
 
-        RelativeLayout f1 = (RelativeLayout) getView().findViewById(R.id.RelativeLayout);
+        RelativeLayout f1 = (RelativeLayout) view.findViewById(R.id.RelativeLayout);
         f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
-        final ImageView imageHistory = (ImageView) getView().findViewById(R.id.imageHistory);
+        final ImageView imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
 
-        final ImageView imageGetContact = (ImageView) getView().findViewById(R.id.to_contacts);
+        final ImageView imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
 
         if(!MyActivity.scrollViewState){
-            ImageView imageTwo = (ImageView) getView().findViewById(R.id.imageHistory);
-            imageTwo.setVisibility(View.INVISIBLE);
-            imageTwo.setClickable(false);
+
+            imageHistory.setVisibility(View.INVISIBLE);
+            imageHistory.setClickable(false);
 
             imageGetContact.setVisibility(View.INVISIBLE);
             imageGetContact.setClickable(false);
@@ -130,7 +132,7 @@ public class TopFragmentLogo extends Fragment {
         // Check which request we're responding to
         if (requestCode == PICK_CONTACT_REQUEST) {
             // Make sure the request was successful
-            if (resultCode == getActivity().RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
 

@@ -6,17 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * Created by spencer on 9/22/2014.
+ * Created by spencer
+ * on 9/22/2014.
  */
 public class HistoryFragment extends ListFragment {
 
 
-    private ListView historyListView;
-    private ArrayAdapter arrayAdapter;
+
+
 
 
     @Override
@@ -28,7 +28,7 @@ public class HistoryFragment extends ListFragment {
 
         ArrayList<String> savedWords = new ArrayList<String>();
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        historyListView = (ListView) getView().findViewById(R.id.history_list);
+
 
 
         boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;

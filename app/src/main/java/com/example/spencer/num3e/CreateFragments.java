@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 /**
- * Created by spencer on 11/4/2014.
+ * Created by spencer
+ * on 11/4/2014.
  */
 public class CreateFragments extends Activity {
 
 
-    static boolean scrollViewState = true;
+
 
 
     @Override

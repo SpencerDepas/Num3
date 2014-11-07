@@ -7,8 +7,8 @@ android {
         applicationId 'com.clearfaun.spencer_depas'
         minSdkVersion 13
         targetSdkVersion 19
-        versionCode 2
-        versionName '1.101'
+        versionCode 3
+        versionName '1.102'
     }
     buildTypes {
         release {

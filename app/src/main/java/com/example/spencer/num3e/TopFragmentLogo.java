@@ -3,9 +3,12 @@ package com.example.spencer.num3e;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +42,9 @@ public class TopFragmentLogo extends Fragment {
 
 
 
+
+
+
         return view;
     }
 
@@ -48,6 +54,8 @@ public class TopFragmentLogo extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
 
         TextView textView = (TextView) view.findViewById(R.id.greybar);
         textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
@@ -59,6 +67,13 @@ public class TopFragmentLogo extends Fragment {
         final ImageView imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
 
         final ImageView imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
+
+
+        //if there is no history, you can not see the history button.
+        if(!hasSavedContents){
+            imageHistory.setVisibility(View.INVISIBLE);
+        }
+
 
         if(!MyActivity.scrollViewState){
 

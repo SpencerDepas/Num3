@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.spencer.num3e" >
+    package="com.example.spencer.num3e"
     android:versionCode="2"
-    android:versionName="1.102"
+    android:versionName="1.101"
+    >
 
 
     <uses-sdk android:minSdkVersion="13"/>

@@ -515,6 +515,22 @@ public class ComputateFragment  extends Fragment {
         //editText.setVisibility(View.INVISIBLE);
         button.performClick();
 
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+        final Button button = (Button) getActivity().findViewById(R.id.button);
+
+        editText.setText("");
+        String buttonTrue = getResources().getString(R.string.buttonTrue);
+        editText.addTextChangedListener(watch);
+        editText.setText("");
+        button.setText(buttonTrue);
+        pushOrClear = true;
+        editText.setEnabled(true);
     }
 
 

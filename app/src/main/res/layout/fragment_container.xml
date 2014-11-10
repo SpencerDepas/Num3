@@ -10,14 +10,14 @@
 
     <FrameLayout
         android:id="@+id/top"
-        android:layout_weight="1"
+        android:layout_weight="100"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         />
 
     <FrameLayout
         android:id="@+id/bottom"
-        android:layout_weight="1"
+        android:layout_weight="85"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         />

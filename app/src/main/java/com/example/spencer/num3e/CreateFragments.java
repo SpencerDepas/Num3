@@ -66,6 +66,7 @@ public class CreateFragments extends Activity {
 
         } else {
             finish();
+
         }
     }
 

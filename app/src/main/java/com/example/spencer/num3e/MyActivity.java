@@ -34,6 +34,7 @@ public class MyActivity extends Activity {
             setContentView(R.layout.clearfaun);
             RelativeLayout clearf = (RelativeLayout) findViewById(R.id.clearfaunrl);
             clearf.setBackgroundColor(getResources().getColor(R.color.white));
+            finish();
 
 
             int secondsDelayed = 2;
@@ -41,7 +42,7 @@ public class MyActivity extends Activity {
                 public void run() {
                     Intent intent = new Intent(MyActivity.this, CreateFragments.class);
                     MyActivity.this.startActivity(intent);
-                    finish();
+
                 }
             }, secondsDelayed * 1000);
             editor.putInt("first_boot", 420);
@@ -49,6 +50,7 @@ public class MyActivity extends Activity {
         }else{
             Intent intent = new Intent(MyActivity.this, CreateFragments.class);
             MyActivity.this.startActivity(intent);
+            finish();
         }
     }
 

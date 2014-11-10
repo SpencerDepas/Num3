@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -136,6 +138,7 @@ public class ComputateFragment  extends Fragment {
 
                     //for when the button is in clear mode
                     String buttonTrue = getResources().getString(R.string.buttonTrue);
+                    editText.addTextChangedListener(watch);
                     editText.setText("");
                     button.setText(buttonTrue);
                     pushOrClear = true;
@@ -336,6 +339,8 @@ public class ComputateFragment  extends Fragment {
         }
     }
 
+    String newTestString;
+
     private class AS_HashTable extends AsyncTask<String, Void, String> {
 
         @Override
@@ -380,13 +385,13 @@ public class ComputateFragment  extends Fragment {
                 finishedWordWithDash = "Sorry mate.";
             }
 
-            while(true){
-                if(finishedWordWithDash.contains("--")){
-                    finishedWordWithDash = finishedWordWithDash.replace("--", "-");
-                }else{
-                    break;
-                }
+            while(finishedWordWithDash.contains("--")){
+
+                finishedWordWithDash = finishedWordWithDash.replace("--", "-");
+
             }
+            newTestString = finishedWordWithDash;
+
 
             wordReturnedFromTxtFile.clear();
 
@@ -410,6 +415,7 @@ public class ComputateFragment  extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+
 
 
             //this is to save searched numbers
@@ -461,6 +467,7 @@ public class ComputateFragment  extends Fragment {
                 }
 
 
+
                 if(!sharedpreferences.contains(HistoryArraySize)){
 
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber);
@@ -481,10 +488,11 @@ public class ComputateFragment  extends Fragment {
             }
 
 
+            editText.removeTextChangedListener(watch);
 
             spinner.setVisibility(View.GONE);
             editText.setGravity(Gravity.CENTER);
-            editText.setText(finishedWordWithDash);
+            editText.setText(newTestString);
 
 
 
@@ -528,10 +536,5 @@ public class ComputateFragment  extends Fragment {
 
 
 
-   /* public void toaster(String text) {
-        int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(this.getActivity(), text, duration);
-        toast.show();
-    }*/
 
 }

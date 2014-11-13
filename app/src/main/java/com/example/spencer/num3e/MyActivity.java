@@ -22,6 +22,8 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
+
+
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(MyActivity.this);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 

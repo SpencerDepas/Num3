@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -71,6 +72,8 @@ public class ComputateFragment  extends Fragment {
         view = inflater.inflate(R.layout.computate_fragment,
                 container, false);
 
+
+
         return view;
     }
 
@@ -81,6 +84,8 @@ public class ComputateFragment  extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         spinner = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
         //final Button button = (Button) getActivity().findViewById(R.id.button);
         final Button button = (Button) getActivity().findViewById(R.id.button);
@@ -90,6 +95,8 @@ public class ComputateFragment  extends Fragment {
 
         button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
         button.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
+
+
 
 
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(

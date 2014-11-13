@@ -46,11 +46,13 @@ public class ComputateFragment  extends Fragment {
     ArrayList<String> wordReturnedFromTxtFile = new ArrayList<String>();
     ArrayList<String> theNumberCombos = new ArrayList<String>();
 
-    static String finishedWordWithDash;
+    String finishedWordWithDash;
 
     final int startOfNumberIndexFromTxt = 23;
     private ProgressBar spinner;
     static EditText editText;
+    TextView numberAfterReturnedWord;
+    //static EditText numberAfterReturnedWord;
     static boolean pushOrClear = true;
 
     //this is for saving already searched numbers
@@ -136,6 +138,7 @@ public class ComputateFragment  extends Fragment {
 
                 } else {
 
+                    numberAfterReturnedWord.setText("");
                     //for when the button is in clear mode
                     String buttonTrue = getResources().getString(R.string.buttonTrue);
                     editText.addTextChangedListener(watch);
@@ -143,6 +146,9 @@ public class ComputateFragment  extends Fragment {
                     button.setText(buttonTrue);
                     pushOrClear = true;
                     editText.setEnabled(true);
+
+                    //numberAfterReturnedWord = (EditText) getActivity().findViewById(R.id.numberAfterReturnedWord);
+                    //numberAfterReturnedWord.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -422,6 +428,22 @@ public class ComputateFragment  extends Fragment {
             if(!(finishedWordWithDash.equals("Sorry mate."))){
 
 
+                String cellNumberWithDash;
+
+                for( int i = 0; i < finishedWordWithDash.length(); i ++){
+
+                    if(finishedWordWithDash.charAt(i) == '-'){
+
+                        //cellNumberWithDash =
+                        //cellNumber = cellNumber.substring(i, i + 1) + "-" + cellNumber.substring(i + 1, cellNumber.length());
+
+                            cellNumber = cellNumber.substring(0, i) + "-" + cellNumber.substring(i,cellNumber.length() );
+
+                    }
+                }
+
+
+
 
 
 
@@ -487,6 +509,23 @@ public class ComputateFragment  extends Fragment {
                 toaster("entert ther matrix " + SavedListOfWordsArrayIndex);*/
             }
 
+            //numberAfterReturnedWord = (EditText) getActivity().findViewById(R.id.numberAfterReturnedWord);
+            numberAfterReturnedWord = (TextView) getActivity().findViewById(R.id.greybar);
+            numberAfterReturnedWord.setVisibility(View.VISIBLE);
+
+            /*int tempInt = 0;
+            for(int i = 0; i < indexOfDashes.length; i ++){
+
+
+                if(cellNumber.charAt(i) == indexOfDashes[tempInt]) {
+                    tempInt ++;
+                    cellNumber = cellNumber.substring(i, i + 1) + "-";
+                }
+
+
+            }*/
+
+            numberAfterReturnedWord.setText(cellNumber);
 
             editText.removeTextChangedListener(watch);
 

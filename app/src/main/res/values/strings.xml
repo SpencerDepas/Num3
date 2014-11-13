@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="buttonTrue">Push</string>
     <string name="buttonFalse">Clear</string>
+    <string name="number">6466646127</string>
     <string name="action_settings">Settings</string>
 
 </resources>

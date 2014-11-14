@@ -30,7 +30,7 @@ public class TopFragmentLogo extends Fragment {
 
       // The request code
     static final int PICK_CONTACT_REQUEST = 0;
-
+    static TextView  numberAfterReturnedWord;
 
     View view;
 
@@ -41,7 +41,7 @@ public class TopFragmentLogo extends Fragment {
         view = inflater.inflate(R.layout.top_fragment, container, false);
 
 
-
+        numberAfterReturnedWord = (TextView) getActivity().findViewById(R.id.greybar);
 
 
 
@@ -75,7 +75,7 @@ public class TopFragmentLogo extends Fragment {
         }
 
 
-        if(!MyActivity.scrollViewState){
+        if(!HistoryFragment.scrollViewState){
 
             imageHistory.setVisibility(View.INVISIBLE);
             imageHistory.setClickable(false);
@@ -91,7 +91,7 @@ public class TopFragmentLogo extends Fragment {
             public void onClick(View v) {
 
 
-                MyActivity.scrollViewState = false;
+                HistoryFragment.scrollViewState = false;
 
 
                 Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
@@ -164,6 +164,9 @@ public class TopFragmentLogo extends Fragment {
 
                 int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(column);
+                if(number.contains("+")){
+                    number = number.replace("+", "");
+                }
 
 
                 Button button = (Button) getActivity().findViewById(R.id.button);
@@ -178,7 +181,13 @@ public class TopFragmentLogo extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
 
+        HistoryFragment.scrollViewState = true;
+
+    }
 
 
 

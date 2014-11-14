@@ -118,7 +118,7 @@ public class ComputateFragment  extends Fragment {
                 //button status,
                 if (pushOrClear) {
 
-                    if (editText.length() > 1 && editText.length() <= 16) {
+                    if (editText.length() > 1 && editText.length() <= 19) {
                         editText.setEnabled(false);
 
                         button.setEnabled(false);
@@ -559,7 +559,8 @@ public class ComputateFragment  extends Fragment {
 
         editText.setText(fromContactsNumber);
         //editText.setVisibility(View.INVISIBLE);
-        button.performClick();
+        //removed so if yuou want you can edit the number
+        // button.performClick();
 
 
     }
@@ -570,6 +571,7 @@ public class ComputateFragment  extends Fragment {
 
         final Button button = (Button) getActivity().findViewById(R.id.button);
 
+        //numberAfterReturnedWord.setText("");
         editText.setText("");
         String buttonTrue = getResources().getString(R.string.buttonTrue);
         editText.addTextChangedListener(watch);
@@ -577,6 +579,7 @@ public class ComputateFragment  extends Fragment {
         button.setText(buttonTrue);
         pushOrClear = true;
         editText.setEnabled(true);
+        //MyActivity.scrollViewState = true;
     }
 
 

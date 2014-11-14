@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * Created by spencer
@@ -49,8 +50,13 @@ public class CreateFragments extends Activity {
     //we go back and dont stay in the same place.
     public static boolean inHistoryFragment = false;
 
+    TextView numberAfterReturnedWord;
+
     @Override
     public void onBackPressed() {
+
+        numberAfterReturnedWord = (TextView) this.findViewById(R.id.greybar);
+        numberAfterReturnedWord.setText("");
 
         if (inHistoryFragment) {
 
@@ -69,5 +75,8 @@ public class CreateFragments extends Activity {
 
         }
     }
+
+
+
 
 }

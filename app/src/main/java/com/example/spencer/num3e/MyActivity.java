@@ -15,7 +15,7 @@ public class MyActivity extends Activity {
     //app was originally called Num3e
 
 
-    static boolean scrollViewState = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

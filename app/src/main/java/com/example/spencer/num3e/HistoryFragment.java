@@ -16,7 +16,7 @@ public class HistoryFragment extends ListFragment {
 
 
 
-
+    static boolean scrollViewState = true;
 
 
     @Override

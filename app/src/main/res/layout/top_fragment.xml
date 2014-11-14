@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:id="@+id/greybar"
+            android:text="  "
             android:gravity="center_horizontal"
             android:textSize="15sp"
             />

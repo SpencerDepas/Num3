@@ -1,6 +1,7 @@
 package com.example.spencer.num3e;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,16 +40,17 @@ public class ComputateFragment  extends Fragment {
 
     static String cellNumber;
 
-    ArrayList<String> wordReturnedFromTxtFile = new ArrayList<String>();
-    ArrayList<String> theNumberCombos = new ArrayList<String>();
+    ArrayList<String> wordReturnedFromDict = new ArrayList<String>();
+    ArrayList<String> numberIterations = new ArrayList<String>();
 
     String finishedWordWithDash;
 
     final int START_OF_NUMBER_INDEX_FROM_TXT = 23;
     private ProgressBar spinner;
+    private ProgressBar onBootSpinner;
     static EditText editText;
     static TextView wordAfterReturnedGreyBar;
-    static boolean pushOrClear = true;
+    Button button;
 
     //this is for saving already searched numbers
     public static int SavedListOfWordsArrayIndex = 0;
@@ -78,7 +81,9 @@ public class ComputateFragment  extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         spinner = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
-        final Button button = (Button) getActivity().findViewById(R.id.button);
+        onBootSpinner = (ProgressBar) getActivity().findViewById(R.id.onBootProgressBar);
+
+        button = (Button) getActivity().findViewById(R.id.button);
         editText = (EditText) getActivity().findViewById(R.id.editText);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
         wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
@@ -86,8 +91,10 @@ public class ComputateFragment  extends Fragment {
         button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
         button.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
+        editText.setVisibility(View.INVISIBLE);
+        button.setVisibility(View.INVISIBLE);
+        onBootSpinner.setVisibility(View.VISIBLE);
 
-        spinner.setVisibility(View.VISIBLE);
         CreateHashTable task = new CreateHashTable();
         task.execute();
 
@@ -99,8 +106,8 @@ public class ComputateFragment  extends Fragment {
             public void onClick(View v) {
 
 
-                /*wordReturnedFromTxtFile.clear();
-                theNumberCombos.clear();*/
+                /*wordReturnedFromDict.clear();
+                numberIterations.clear();*/
                 finishedWordWithDash = "";
                 wordAfterReturnedGreyBar.setText("");
                 //for when the button is in clear mode
@@ -152,7 +159,10 @@ public class ComputateFragment  extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            spinner.setVisibility(View.INVISIBLE);
+            onBootSpinner.setVisibility(View.INVISIBLE);
+            editText.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -174,24 +184,24 @@ public class ComputateFragment  extends Fragment {
             int indexOne = s.length() - 1;
             int indexTwo = s.length();
 
-            //REMOVES everything that is not a number
             if(s.length() > 0) {
-                int charCharacterValue = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
-                //48 to 57 char (int) of 0-9
-                if (!(charCharacterValue >= 48 && charCharacterValue <= 57)) {
+                int currentCharCharacterValue = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
+                //REMOVES everything that is not a number
+                if (!(currentCharCharacterValue >= 48 && currentCharCharacterValue <= 57)) {
                     //deletes if not a number
                     if (s.length() > 0) {
                         s.delete(indexOne, indexTwo);
                     }
                 }else if(editText.length() > 1 && editText.length() <= 14){
-                        // this is so that it computes on every number you enter
-                        getNumberReturn();
 
-                    }else if(editText.length() < 2 ){
+                    // this is so that it computes on every number you enter
+                    getNumberReturn();
 
-                        wordAfterReturnedGreyBar.setText("");
+                }else if(editText.length() < 2 ){
 
-                    }
+                    wordAfterReturnedGreyBar.setText("");
+
+                }
             }
 
 
@@ -208,6 +218,8 @@ public class ComputateFragment  extends Fragment {
         cellNumber = cellNumber.replaceAll("\\(","");
         cellNumber = cellNumber.replaceAll("\\)", "");
         cellNumber = cellNumber.replaceAll(" ","");
+
+
 
 
         finishedWordWithDash = cellNumber;
@@ -229,18 +241,19 @@ public class ComputateFragment  extends Fragment {
             int endBlockNumberLength = cellNumber.length() - 1;
 
 
-            theNumberCombos.add(cellNumber);
+            numberIterations.add(cellNumber);
 
             //this is what creates every number combination of the input number
             // 123
             //12
-            //23    i < theNumberCombos.size() && endBlockNumberLength > 1
+            //23    i < numberIterations.size() && endBlockNumberLength > 1
             //1 , 2, 3
-            for(int i = 0; i < theNumberCombos.size() && endBlockNumberLength > 1 ; i++){
+            for(int i = 0; i < numberIterations.size() && endBlockNumberLength > 1 ; i++){
 
-                theNumberCombos.add(cellNumber.substring(i, i + endBlockNumberLength));
+                numberIterations.add(cellNumber.substring(i, i + endBlockNumberLength));
 
                 if(i + endBlockNumberLength == cellNumber.length()){
+
                     endBlockNumberLength --;
                     i = -1;
                 }
@@ -267,31 +280,28 @@ public class ComputateFragment  extends Fragment {
     static Hashtable<String, ArrayList<String>> dict;
 
 
-
-
-
     private class AS_HashTable extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {
 
-            for(String number : theNumberCombos) {
+            for(String number : numberIterations) {
                 ArrayList<String> arr = dict.get(number);
                 if (arr != null) {
                     String word = arr.get(0);
-                    wordReturnedFromTxtFile.add(number + "," + word);
+                    wordReturnedFromDict.add(number + "," + word);
                 }
             }
 
 
 
             //renews if you want to run again
-            theNumberCombos.clear();
+            numberIterations.clear();
 
 
             //this is for if there are no returned words.
-            if(!wordReturnedFromTxtFile.isEmpty()) {
-                for (String returnedWord: wordReturnedFromTxtFile) {
+            if(!wordReturnedFromDict.isEmpty()) {
+                for (String returnedWord: wordReturnedFromDict) {
 
                     String[] numberAndWord = returnedWord.split(",");
                     String number = numberAndWord[0];
@@ -322,7 +332,7 @@ public class ComputateFragment  extends Fragment {
 
 
 
-            wordReturnedFromTxtFile.clear();
+
 
             return null;
         }
@@ -335,7 +345,7 @@ public class ComputateFragment  extends Fragment {
         @Override
         protected void onPostExecute(String result) {
 
-
+            
 
 
             wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
@@ -353,6 +363,7 @@ public class ComputateFragment  extends Fragment {
             editText.setSelection(editText.getText().toString().length());
             editText.addTextChangedListener(watch);
 
+            wordReturnedFromDict.clear();
 
         }
 
@@ -367,6 +378,7 @@ public class ComputateFragment  extends Fragment {
 
         editText.setText(fromContactsNumber);
 
+
     }
 
     @Override
@@ -376,7 +388,17 @@ public class ComputateFragment  extends Fragment {
         editText.setText("");
         editText.addTextChangedListener(watch);
         editText.setText("");
-        editText.setEnabled(true);
+
+    }
+
+    public void toast(String string){
+
+        Context context = getActivity().getApplicationContext();
+        CharSequence text = string;
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
     }
 

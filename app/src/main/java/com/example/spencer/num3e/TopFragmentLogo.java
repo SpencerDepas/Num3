@@ -29,7 +29,7 @@ public class TopFragmentLogo extends Fragment {
 
       // The request code
     static final int PICK_CONTACT_REQUEST = 0;
-    static TextView  numberAfterReturnedWord;
+
 
     View view;
 
@@ -38,10 +38,6 @@ public class TopFragmentLogo extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.top_fragment, container, false);
-
-
-        numberAfterReturnedWord = (TextView) getActivity().findViewById(R.id.greybar);
-
 
 
         return view;
@@ -63,19 +59,12 @@ public class TopFragmentLogo extends Fragment {
         RelativeLayout f1 = (RelativeLayout) view.findViewById(R.id.RelativeLayout);
         f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
-        final ImageView imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
 
-        final ImageView imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
-
+        ImageView imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
+        ImageView imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
 
         //if there is no history, you can not see the history button.
         if(!hasSavedContents){
-            imageHistory.setVisibility(View.INVISIBLE);
-        }
-
-
-        if(!HistoryFragment.scrollViewState){
-
             imageHistory.setVisibility(View.INVISIBLE);
             imageHistory.setClickable(false);
 
@@ -84,23 +73,21 @@ public class TopFragmentLogo extends Fragment {
         }
 
 
+        //for numbers you have previously searched
         imageHistory.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-
-                HistoryFragment.scrollViewState = false;
-
-
-                Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
-                startActivity(intent);
+              Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
+              startActivity(intent);
 
             }
 
 
         });
 
+        // to get numbers from contacts
         imageGetContact.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -117,25 +104,13 @@ public class TopFragmentLogo extends Fragment {
     }
 
 
-
     private void pickContact() {
 
-        //clear may need to activate if contacts is pressed consequlivtly
-        if(!ComputateFragment.pushOrClear){
-            Button button = (Button) getActivity().findViewById(R.id.button);
-            button.performClick();
-        }
-
-
         Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
-        pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+        // Show user only contacts w/ phone numbers
+        pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
         getActivity().setResult(Activity.RESULT_OK);
-
-
-        EditText editText = (EditText) getActivity().findViewById(R.id.editText);
-        editText.setText("");
-
 
     }
 
@@ -152,8 +127,6 @@ public class TopFragmentLogo extends Fragment {
 
                 // Do something with the contact here (bigger example below)
 
-
-
                 Uri contactUri = data.getData();
                 String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
 
@@ -163,17 +136,19 @@ public class TopFragmentLogo extends Fragment {
 
                 int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(column);
-                if(number.contains("+")){
+
+
+                if(number.contains("+") || number.contains(" ") || number.contains("(")
+                        || number.contains("-")){
                     number = number.replace("+", "");
+                    number = number.replace(" ", "");
+                    number = number.replace("(", "");
+                    number = number.replace(")", "");
+                    number = number.replace("-", "");
                 }
-
-
-
-
 
                 ComputateFragment.computeContactNumber(number);
                 projection[0] = "";
-
 
 
             }

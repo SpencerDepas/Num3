@@ -15,6 +15,14 @@
         android:layout_marginTop="30dp"
         android:id="@+id/relitiveLayout">
 
+        <ProgressBar
+            android:id="@+id/onBootProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
         <LinearLayout
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
@@ -39,6 +47,8 @@
                 android:maxLength="14"
                 android:id="@+id/editText"
                 />
+
+
 
             <Button
                 android:layout_width="match_parent"

@@ -171,6 +171,21 @@ public class ComputateFragment  extends Fragment {
             //48 to 57 char (int) of 0-9
 
 
+            int indexOne = s.length() - 1;
+            int indexTwo = s.length();
+
+            //REMOVES everything that is not a number
+            if(s.length() > 0) {
+                int charCharacterValue = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
+                //48 to 57 char (int) of 0-9
+                if (!(charCharacterValue >= 48 && charCharacterValue <= 57)) {
+                    //deletes if not a number
+                    if (s.length() > 0) {
+                        s.delete(indexOne, indexTwo);
+                    }
+                }
+            }
+
             // this is so that it computes on every number you enter
             if(editText.length() > 2 && editText.length() <= 14){
 

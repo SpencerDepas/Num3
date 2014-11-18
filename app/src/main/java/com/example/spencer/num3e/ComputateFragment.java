@@ -43,7 +43,7 @@ public class ComputateFragment  extends Fragment {
 
     String finishedWordWithDash;
 
-    final int STARTOFNUMBERINDEXFROMTXT = 23;
+    final int START_OF_NUMBER_INDEX_FROM_TXT = 23;
     private ProgressBar spinner;
     static EditText editText;
     static TextView wordAfterReturnedGreyBar;
@@ -51,7 +51,7 @@ public class ComputateFragment  extends Fragment {
 
     //this is for saving already searched numbers
     public static int SavedListOfWordsArrayIndex = 0;
-    public static final String HISTOYARRAYSIZE = "arrayIndex";
+    public static final String HISTOY_ARRAY_SIZE = "arrayIndex";
 
 
     View view;
@@ -81,6 +81,7 @@ public class ComputateFragment  extends Fragment {
         final Button button = (Button) getActivity().findViewById(R.id.button);
         editText = (EditText) getActivity().findViewById(R.id.editText);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
+        wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
 
         button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
         button.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
@@ -131,8 +132,8 @@ public class ComputateFragment  extends Fragment {
                     br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
 
                     for (; (sCurrentLine = br.readLine()) != null; ) {
-                        String number = sCurrentLine.substring(STARTOFNUMBERINDEXFROMTXT);
-                        String word = sCurrentLine.substring(0, STARTOFNUMBERINDEXFROMTXT).trim();
+                        String number = sCurrentLine.substring(START_OF_NUMBER_INDEX_FROM_TXT);
+                        String word = sCurrentLine.substring(0, START_OF_NUMBER_INDEX_FROM_TXT).trim();
                         ArrayList<String> arr = dict.get(number);
                         if (arr == null) {
                             arr = new ArrayList<String>();
@@ -169,13 +170,15 @@ public class ComputateFragment  extends Fragment {
         public void afterTextChanged(Editable s) {
             //48 to 57 char (int) of 0-9
 
-            String editTextString = editText.getText().toString();
-
 
             // this is so that it computes on every number you enter
             if(editText.length() > 2 && editText.length() <= 14){
 
                 getNumberReturn();
+
+            }else if(editText.length() < 3 ){
+
+                wordAfterReturnedGreyBar.setText("");
 
             }
 

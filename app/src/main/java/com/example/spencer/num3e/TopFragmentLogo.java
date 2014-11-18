@@ -54,7 +54,7 @@ public class TopFragmentLogo extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTOYARRAYSIZE, 0)) > 0;
+        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTOY_ARRAY_SIZE, 0)) > 0;
 
         TextView textView = (TextView) view.findViewById(R.id.greybar);
         textView.setBackgroundColor(getResources().getColor(R.color.DimGray));

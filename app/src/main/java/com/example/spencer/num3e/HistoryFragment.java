@@ -31,11 +31,11 @@ public class HistoryFragment extends ListFragment {
 
 
 
-        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTOYARRAYSIZE, 0)) > 0;
+        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTOY_ARRAY_SIZE, 0)) > 0;
 
         if(hasSavedContents) {
 
-            int arraySize = (sharedpreferences.getInt(ComputateFragment.HISTOYARRAYSIZE, 0));
+            int arraySize = (sharedpreferences.getInt(ComputateFragment.HISTOY_ARRAY_SIZE, 0));
 
             if (arraySize >= 0) {
                 for (int i = arraySize ; i != 0; i--) {

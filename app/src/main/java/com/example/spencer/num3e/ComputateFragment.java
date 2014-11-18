@@ -183,19 +183,18 @@ public class ComputateFragment  extends Fragment {
                     if (s.length() > 0) {
                         s.delete(indexOne, indexTwo);
                     }
-                }
+                }else if(editText.length() > 1 && editText.length() <= 14){
+                        // this is so that it computes on every number you enter
+                        getNumberReturn();
+
+                    }else if(editText.length() < 2 ){
+
+                        wordAfterReturnedGreyBar.setText("");
+
+                    }
             }
 
-            // this is so that it computes on every number you enter
-            if(editText.length() > 2 && editText.length() <= 14){
 
-                getNumberReturn();
-
-            }else if(editText.length() < 3 ){
-
-                wordAfterReturnedGreyBar.setText("");
-
-            }
 
         }
     };

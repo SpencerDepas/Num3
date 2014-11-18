@@ -36,7 +36,7 @@
                 android:textColor="@color/SkyBlue"
                 android:textColorHint="@color/SkyBlue"
                 android:ems="10"
-                android:maxLength="19"
+                android:maxLength="14"
                 android:id="@+id/editText"
                 />
 

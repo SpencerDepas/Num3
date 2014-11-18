@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -55,7 +54,7 @@ public class TopFragmentLogo extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HistoryArraySize, 0)) > 0;
+        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTOYARRAYSIZE, 0)) > 0;
 
         TextView textView = (TextView) view.findViewById(R.id.greybar);
         textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
@@ -169,10 +168,10 @@ public class TopFragmentLogo extends Fragment {
                 }
 
 
-                Button button = (Button) getActivity().findViewById(R.id.button);
 
 
-                ComputateFragment.computeContactNumber(number, button);
+
+                ComputateFragment.computeContactNumber(number);
                 projection[0] = "";
 
 

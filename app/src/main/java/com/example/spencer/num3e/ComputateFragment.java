@@ -1,29 +1,22 @@
 package com.example.spencer.num3e;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,22 +36,22 @@ import java.util.Hashtable;
 public class ComputateFragment  extends Fragment {
 
 
-    String cellNumber;
+    static String cellNumber;
+
     ArrayList<String> wordReturnedFromTxtFile = new ArrayList<String>();
     ArrayList<String> theNumberCombos = new ArrayList<String>();
 
     String finishedWordWithDash;
 
-    final int startOfNumberIndexFromTxt = 23;
+    final int STARTOFNUMBERINDEXFROMTXT = 23;
     private ProgressBar spinner;
     static EditText editText;
-    TextView numberAfterReturnedWord;
-    //static EditText numberAfterReturnedWord;
+    static TextView wordAfterReturnedGreyBar;
     static boolean pushOrClear = true;
 
     //this is for saving already searched numbers
     public static int SavedListOfWordsArrayIndex = 0;
-    public static final String HistoryArraySize = "arrayIndex";
+    public static final String HISTOYARRAYSIZE = "arrayIndex";
 
 
     View view;
@@ -71,8 +64,6 @@ public class ComputateFragment  extends Fragment {
 
         view = inflater.inflate(R.layout.computate_fragment,
                 container, false);
-
-
 
         return view;
     }
@@ -87,94 +78,82 @@ public class ComputateFragment  extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         spinner = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
-        //final Button button = (Button) getActivity().findViewById(R.id.button);
         final Button button = (Button) getActivity().findViewById(R.id.button);
         editText = (EditText) getActivity().findViewById(R.id.editText);
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
-
 
         button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
         button.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
 
-
-
-        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-
-
-
+        spinner.setVisibility(View.VISIBLE);
         CreateHashTable task = new CreateHashTable();
         task.execute();
 
 
         editText.addTextChangedListener(watch);
 
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
-
-                //button status,
-                if (pushOrClear) {
-
-                    if (editText.length() > 1 && editText.length() <= 19) {
-                        editText.setEnabled(false);
-
-                        button.setEnabled(false);
-                        pushOrClear = false;
-
-                        //this hides the keyboard on click
-                        imm.hideSoftInputFromWindow(null, 0);
-
-                        spinner.setVisibility(View.VISIBLE);
-
-                        cellNumber = editText.getText().toString().replaceAll("-","");
-                        cellNumber = cellNumber.replaceAll("\\(","");
-                        cellNumber = cellNumber.replaceAll("\\)", "");
-                        cellNumber = cellNumber.replaceAll(" ","");
-
-                         finishedWordWithDash = cellNumber;
-                        editText.setText(" ");
-
-                        //this is to get the combinations of numbers to check with the txt file
-                        ActivateASTask();
-
-                    }
+                /*wordReturnedFromTxtFile.clear();
+                theNumberCombos.clear();*/
+                finishedWordWithDash = "";
+                wordAfterReturnedGreyBar.setText("");
+                //for when the button is in clear mode
+                editText.setText("");
 
 
-                } else {
 
-                    numberAfterReturnedWord.setText("");
-                    //for when the button is in clear mode
-                    String buttonTrue = getResources().getString(R.string.buttonTrue);
-                    editText.addTextChangedListener(watch);
-                    editText.setText("");
-                    button.setText(buttonTrue);
-                    pushOrClear = true;
-                    editText.setEnabled(true);
-
-                    //numberAfterReturnedWord = (EditText) getActivity().findViewById(R.id.numberAfterReturnedWord);
-                    //numberAfterReturnedWord.setVisibility(View.INVISIBLE);
-                }
 
             }
         });
-
-        // this is for if you press done on the keyboard and you want it to work as onclick
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    button.performClick();
-                }
-                return false;
-            }
-        });
-
 
     }
 
 
+    private class CreateHashTable extends AsyncTask<String, Void, String> {
+
+
+        public String sCurrentLine = "";
+
+        public BufferedReader br;
+        final AssetManager assetManager = getActivity().getAssets();
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                if (dict == null) {
+                    dict = new Hashtable<String, ArrayList<String>>();
+                    InputStream input = assetManager.open("wordlist.txt");
+                    br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
+
+                    for (; (sCurrentLine = br.readLine()) != null; ) {
+                        String number = sCurrentLine.substring(STARTOFNUMBERINDEXFROMTXT);
+                        String word = sCurrentLine.substring(0, STARTOFNUMBERINDEXFROMTXT).trim();
+                        ArrayList<String> arr = dict.get(number);
+                        if (arr == null) {
+                            arr = new ArrayList<String>();
+                            dict.put(number, arr);
+                        }
+
+                        arr.add(word);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            spinner.setVisibility(View.INVISIBLE);
+        }
+    }
 
 
     TextWatcher watch = new TextWatcher() {
@@ -189,79 +168,39 @@ public class ComputateFragment  extends Fragment {
         @Override
         public void afterTextChanged(Editable s) {
             //48 to 57 char (int) of 0-9
-            int indexOne = s.length() - 1;
-            int indexTwo = s.length();
+
             String editTextString = editText.getText().toString();
-            boolean editTextContainsBracket = editTextString.contains("(");
 
-            //greater than zero to prevent crashing from deleting and restarting to zero.
-            //this makes it so that only numbers can be entered.
-            if(s.length() > 0 && pushOrClear) {
-                //String stringChar = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
 
-                int charCharacterValue = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
-                //48 to 57 char (int) of 0-9
-                if (!(charCharacterValue >= 48 && charCharacterValue <= 57)) {
-                    //deletes if not a number
-                    if (s.length() > 0) {
-                        s.delete(indexOne, indexTwo);
-                    }
-                }
-            }
+            // this is so that it computes on every number you enter
+            if(editText.length() > 2 && editText.length() <= 14){
 
-            if (s.length() == 4) {
-                String firstDash = editText.getText().toString().substring(3, 4);
-
-                if(firstDash.equals("-")){
-                    s.delete(3, 4);
-                }else {
-                    s.insert(3, "-");
-                }
-            }
-
-            if ( s.length() == 8) {
-                String secondDash = editText.getText().toString().substring(7, 8);
-                if(secondDash.equals("-")) {
-                    s.delete(7, 8);
-                }else{
-                    s.insert(7, "-");
-                }
-            }
-
-            //we do not want it to do this for the returned word.
-            if (s.length() == 13 && pushOrClear) {
-                String fullyFormattedNumber = editTextString.replaceAll("-", "");
-
-                //this is because you only want one set of brackets
-                if(!(editTextString.contains("("))) {
-
-                    fullyFormattedNumber = new StringBuilder(fullyFormattedNumber).insert(1, " (").toString();
-                    fullyFormattedNumber = new StringBuilder(fullyFormattedNumber).insert(6, ") ").toString();
-                    fullyFormattedNumber = new StringBuilder(fullyFormattedNumber).insert(11, "-").toString();
-                    editText.setText(fullyFormattedNumber);
-                    editText.setSelection(editText.length());
-                }
-            }
-            //this is for when we have reached a full number and want to delete
-            //so we want to change the format back to before brackets
-            if (s.length() == 15 && editTextContainsBracket){
-                editTextString = editTextString.replace(" (", "");
-                editTextString = editTextString.replace(") ", "");
-                editTextString = editTextString.replace("-", "");
-
-                editTextString = new StringBuilder(editTextString).insert(3, "-").toString();
-                editTextString = new StringBuilder(editTextString).insert(7, "-").toString();
-                editText.setText(editTextString);
-                editText.setSelection(editText.length());
+                getNumberReturn();
 
             }
+
         }
     };
 
-    public void ActivateASTask(){
+    //this is for when a NUMBER IS ENTERED AND YOU WANT TO GET THE REURN
+    public void getNumberReturn(){
+
+        spinner.setVisibility(View.VISIBLE);
+
+        cellNumber = editText.getText().toString().replaceAll("-","");
+        cellNumber = cellNumber.replaceAll("\\(","");
+        cellNumber = cellNumber.replaceAll("\\)", "");
+        cellNumber = cellNumber.replaceAll(" ","");
+
+
+        finishedWordWithDash = cellNumber;
+        //editText.setText(" ");
+
         //this is to get the combinations of numbers to check with the txt file
         GetCombinations task = new GetCombinations();
         task.execute();
+
+
     }
 
     class GetCombinations extends AsyncTask<String, Void, String> {
@@ -299,8 +238,8 @@ public class ComputateFragment  extends Fragment {
             //this is for buffered reader and going through txt files ect
 
 
-            AS_HashTable task = new AS_HashTable();
-            task.execute();
+            AS_HashTable taskTwo = new AS_HashTable();
+            taskTwo.execute();
         }
 
 
@@ -310,49 +249,9 @@ public class ComputateFragment  extends Fragment {
 
     static Hashtable<String, ArrayList<String>> dict;
 
-    private class CreateHashTable extends AsyncTask<String, Void, String> {
 
 
-        public String sCurrentLine = "";
 
-        public BufferedReader br;
-        final AssetManager assetManager = getActivity().getAssets();
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                if (dict == null) {
-                    dict = new Hashtable<String, ArrayList<String>>();
-                    InputStream input = assetManager.open("wordlist.txt");
-                    br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-
-                    for (; (sCurrentLine = br.readLine()) != null; ) {
-                        String number = sCurrentLine.substring(startOfNumberIndexFromTxt);
-                        String word = sCurrentLine.substring(0, startOfNumberIndexFromTxt).trim();
-                        ArrayList<String> arr = dict.get(number);
-                        if (arr == null) {
-                            arr = new ArrayList<String>();
-                            dict.put(number, arr);
-                        }
-
-                        arr.add(word);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-
-        }
-    }
-
-    String newTestString;
 
     private class AS_HashTable extends AsyncTask<String, Void, String> {
 
@@ -403,7 +302,7 @@ public class ComputateFragment  extends Fragment {
                 finishedWordWithDash = finishedWordWithDash.replace("--", "-");
 
             }
-            newTestString = finishedWordWithDash;
+
 
 
             wordReturnedFromTxtFile.clear();
@@ -413,16 +312,6 @@ public class ComputateFragment  extends Fragment {
 
 
 
-        //public static int makeStringUnique = 0;
-        //public static final String NumberOne = "transformedNumber" + Integer.toString(makeStringUnique);
-        //int historyOfSearchedNumbersCounter = 0;
-        //public static final int SavedListOfWordsArrayIndex = 0;
-        //public static final String historyOfSearchedNumbersCounter = "arrayIndex";
-        //public String[] returnedNumbers = new String[30];
-
-
-        //public static int SavedListOfWordsArrayIndex = 0;
-        boolean firstTimeActivated = true;
 
 
 
@@ -431,120 +320,22 @@ public class ComputateFragment  extends Fragment {
 
 
 
-            //this is to save searched numbers
-            if(!(finishedWordWithDash.equals("Sorry mate."))){
 
-
-                String cellNumberWithDash;
-
-                for( int i = 0; i < finishedWordWithDash.length(); i ++){
-
-                    if(finishedWordWithDash.charAt(i) == '-'){
-
-                        //cellNumberWithDash =
-                        //cellNumber = cellNumber.substring(i, i + 1) + "-" + cellNumber.substring(i + 1, cellNumber.length());
-
-                            cellNumber = cellNumber.substring(0, i) + "-" + cellNumber.substring(i,cellNumber.length() );
-
-                    }
-                }
+            wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
+            //wordAfterReturnedGreyBar.setVisibility(View.VISIBLE);
 
 
 
-
-
-
-                SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-
-                /*boolean hasSavedContentsTest = (sharedpreferences.getInt(tempIntKey, 0)) > 0;
-
-
-                if(!sharedpreferences.contains(tempIntKey)){
-
-                    editor.putInt(tempIntKey, tempInt);
-                    editor.apply();
-                    //toaster("COCK" + "");
-                }else{
-                    int retirevedInt = sharedpreferences.getInt(tempIntKey, 0);
-                    retirevedInt ++;
-                    editor.putInt(tempIntKey, retirevedInt);
-                    editor.apply();
-                    toaster(retirevedInt + "");
-                    //toaster(retirevedInt + "");
-                }
-
-                boolean hasSavedContents = (sharedpreferences.getInt(HistoryArraySize, 0)) > 0;*/
-
-                //toaster("entert ther matrix " + hasSavedContents);
-
-
-
-
-                // SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
-
-                if(firstTimeActivated ){
-
-
-                    SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
-                    // this is now 0
-                    firstTimeActivated = false;
-                  /*  editor.putString("array_" + 100, "cock");
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
-                    editor.apply();*/
-                    //SavedListOfWordsArrayIndex ++;
-                }
-
-
-
-                if(!sharedpreferences.contains(HistoryArraySize)){
-
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber);
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
-                    editor.apply();
-                    SavedListOfWordsArrayIndex ++;
-                }else {
-
-                    SavedListOfWordsArrayIndex++;
-                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
-                    editor.putInt(HistoryArraySize, SavedListOfWordsArrayIndex);
-                    editor.apply();
-                    //toaster("cock + 1");
-
-                }
-                /*SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HistoryArraySize, 0));
-                toaster("entert ther matrix " + SavedListOfWordsArrayIndex);*/
-            }
-
-            //numberAfterReturnedWord = (EditText) getActivity().findViewById(R.id.numberAfterReturnedWord);
-            numberAfterReturnedWord = (TextView) getActivity().findViewById(R.id.greybar);
-            numberAfterReturnedWord.setVisibility(View.VISIBLE);
-
-            /*int tempInt = 0;
-            for(int i = 0; i < indexOfDashes.length; i ++){
-
-
-                if(cellNumber.charAt(i) == indexOfDashes[tempInt]) {
-                    tempInt ++;
-                    cellNumber = cellNumber.substring(i, i + 1) + "-";
-                }
-
-
-            }*/
-
-            numberAfterReturnedWord.setText(cellNumber);
+            wordAfterReturnedGreyBar.setText(finishedWordWithDash);
 
             editText.removeTextChangedListener(watch);
 
             spinner.setVisibility(View.GONE);
             editText.setGravity(Gravity.CENTER);
-            editText.setText(newTestString);
 
+            editText.setSelection(editText.getText().toString().length());
+            editText.addTextChangedListener(watch);
 
-
-            final Button button = (Button) view.findViewById(R.id.button);
-            button.setText("Clear");
-            button.setEnabled(true);
 
         }
 
@@ -555,13 +346,9 @@ public class ComputateFragment  extends Fragment {
 
 
 
-    public static void computeContactNumber(String fromContactsNumber, Button button) {
+    public static void computeContactNumber(String fromContactsNumber) {
 
         editText.setText(fromContactsNumber);
-        //editText.setVisibility(View.INVISIBLE);
-        //removed so if yuou want you can edit the number
-        // button.performClick();
-
 
     }
 
@@ -569,37 +356,12 @@ public class ComputateFragment  extends Fragment {
     public void onPause() {
         super.onPause();  // Always call the superclass method first
 
-        final Button button = (Button) getActivity().findViewById(R.id.button);
-
-        //numberAfterReturnedWord.setText("");
         editText.setText("");
-        String buttonTrue = getResources().getString(R.string.buttonTrue);
         editText.addTextChangedListener(watch);
         editText.setText("");
-        button.setText(buttonTrue);
-        pushOrClear = true;
         editText.setEnabled(true);
-        //MyActivity.scrollViewState = true;
+
     }
-
-
-    //public static String historyStringArray = "transformedNumber";
-    //public static ArrayList<String> returnedNumbers = new ArrayList<String>();
-
-
-/*    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
-
 
 
 }

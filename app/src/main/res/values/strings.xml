@@ -4,7 +4,7 @@
     <string name="app_name">Nume3</string>
     <string name="text_view_hint">Enter a number</string>
     <string name="hello_world">Hello world!</string>
-    <string name="buttonTrue">Push</string>
+    <string name="buttonTrue">Clear</string>
     <string name="buttonFalse">Clear</string>
     <string name="number">6466646127</string>
     <string name="action_settings">Settings</string>

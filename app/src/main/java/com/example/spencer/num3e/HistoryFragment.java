@@ -5,7 +5,11 @@ import android.app.ListFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 
 /**
@@ -22,6 +26,7 @@ public class HistoryFragment extends ListFragment {
 
         CreateFragments.inHistoryFragment = true;
 
+        TopFragmentLogo.trueForVisable(false);
 
         ArrayList<String> savedWords = new ArrayList<String>();
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -58,5 +63,7 @@ public class HistoryFragment extends ListFragment {
     }
 
 
+
 }
+
 

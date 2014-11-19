@@ -44,11 +44,17 @@ public class TopFragmentLogo extends Fragment {
 
     static boolean hasSavedContents;
     static ImageView imageHistory;
+    static ImageView imageGetContact;
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
+        imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
+
+
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTORY_ARRAY_SIZE, 0)) > 0;
@@ -61,8 +67,7 @@ public class TopFragmentLogo extends Fragment {
         f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
 
-        imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
-        ImageView imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
+
 
         //if there is no history, you can not see the history button.
         if(!hasSavedContents){
@@ -78,8 +83,10 @@ public class TopFragmentLogo extends Fragment {
             @Override
             public void onClick(View v) {
 
-              Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
-              startActivity(intent);
+
+            Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
+            startActivity(intent);
+
 
             }
 
@@ -99,6 +106,26 @@ public class TopFragmentLogo extends Fragment {
 
         });
 
+
+    }
+
+    public static void trueForVisable(boolean visable){
+
+        if(visable){
+            imageHistory.setVisibility(View.VISIBLE);
+            imageHistory.setClickable(true);
+
+            imageGetContact.setVisibility(View.VISIBLE);
+            imageGetContact.setClickable(true);
+        }else{
+
+            imageHistory.setVisibility(View.INVISIBLE);
+            imageHistory.setClickable(false);
+
+            imageGetContact.setVisibility(View.INVISIBLE);
+            imageGetContact.setClickable(false);
+
+        }
 
     }
 

@@ -51,6 +51,7 @@ public class ComputateFragment  extends Fragment {
     private ProgressBar onBootSpinner;
     static EditText editText;
     static TextView wordAfterReturnedGreyBar;
+    boolean getIndexOnFirstBootForSavedPreferences = true;
     Button button;
 
     //this is for saving already searched numbers
@@ -72,7 +73,7 @@ public class ComputateFragment  extends Fragment {
         return view;
     }
 
-    boolean getIndexOnFirstBoot = true;
+
 
 
     @Override
@@ -117,9 +118,9 @@ public class ComputateFragment  extends Fragment {
 
                 TopFragmentLogo.fromFirstEverBootMakeHistoryButtonVisableAfterFirstClick();
 
-                if(getIndexOnFirstBoot){
+                if(getIndexOnFirstBootForSavedPreferences){
                     SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HISTORY_ARRAY_SIZE, 0));
-                    getIndexOnFirstBoot = false;
+                    getIndexOnFirstBootForSavedPreferences = false;
                 }
 
                 if(!sharedpreferences.contains(HISTORY_ARRAY_SIZE)){
@@ -396,8 +397,35 @@ public class ComputateFragment  extends Fragment {
 
         editText.setText("");
         editText.addTextChangedListener(watch);
-        editText.setText("");
+        editText.clearFocus();
 
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        editText.setText("");
+        editText.addTextChangedListener(watch);
+        editText.clearFocus();
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        editText.setVisibility(View.INVISIBLE);
+        button.setVisibility(View.INVISIBLE);
+        onBootSpinner.setVisibility(View.VISIBLE);
+
+        CreateHashTable task = new CreateHashTable();
+        task.execute();
+
+
+    }
+
+
+
 
 }

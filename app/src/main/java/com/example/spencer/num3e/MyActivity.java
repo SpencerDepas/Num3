@@ -60,4 +60,14 @@ public class MyActivity extends Activity {
         }
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+
+
+    }
+
+
+
 }

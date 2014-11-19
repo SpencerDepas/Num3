@@ -1,7 +1,6 @@
 package com.example.spencer.num3e;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
@@ -18,10 +17,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,7 +72,7 @@ public class ComputateFragment  extends Fragment {
         return view;
     }
 
-
+    boolean getIndexOnFirstBoot = true;
 
 
     @Override
@@ -119,6 +117,10 @@ public class ComputateFragment  extends Fragment {
 
                 TopFragmentLogo.fromFirstEverBootMakeHistoryButtonVisableAfterFirstClick();
 
+                if(getIndexOnFirstBoot){
+                    SavedListOfWordsArrayIndex = (sharedpreferences.getInt(HISTORY_ARRAY_SIZE, 0));
+                    getIndexOnFirstBoot = false;
+                }
 
                 if(!sharedpreferences.contains(HISTORY_ARRAY_SIZE)){
 
@@ -126,7 +128,6 @@ public class ComputateFragment  extends Fragment {
                     editor.putInt(HISTORY_ARRAY_SIZE, SavedListOfWordsArrayIndex);
                     editor.apply();
                     SavedListOfWordsArrayIndex ++;
-
 
                 }else {
 

@@ -5,10 +5,8 @@ import android.app.ListFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+
 
 import java.util.ArrayList;
 

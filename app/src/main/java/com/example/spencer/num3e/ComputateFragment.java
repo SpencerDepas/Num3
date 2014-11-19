@@ -2,10 +2,12 @@ package com.example.spencer.num3e;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +57,7 @@ public class ComputateFragment  extends Fragment {
 
     //this is for saving already searched numbers
     public static int SavedListOfWordsArrayIndex = 0;
-    public static final String HISTOY_ARRAY_SIZE = "arrayIndex";
+    public static final String HISTORY_ARRAY_SIZE = "arrayIndex";
 
 
     View view;
@@ -106,15 +109,42 @@ public class ComputateFragment  extends Fragment {
             public void onClick(View v) {
 
 
-                /*wordReturnedFromDict.clear();
-                numberIterations.clear();*/
+                SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+
+                // removes saved prefrences
+                /*editor.clear();
+                editor.apply();*/
+
+                TopFragmentLogo.fromFirstEverBootMakeHistoryButtonVisableAfterFirstClick();
+
+
+                if(!sharedpreferences.contains(HISTORY_ARRAY_SIZE)){
+
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber);
+                    editor.putInt(HISTORY_ARRAY_SIZE, SavedListOfWordsArrayIndex);
+                    editor.apply();
+                    SavedListOfWordsArrayIndex ++;
+
+
+                }else {
+
+                    SavedListOfWordsArrayIndex++;
+                    editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber );
+                    editor.putInt(HISTORY_ARRAY_SIZE, SavedListOfWordsArrayIndex);
+                    editor.apply();
+
+                }
+
+
+
+
+
                 finishedWordWithDash = "";
                 wordAfterReturnedGreyBar.setText("");
                 //for when the button is in clear mode
                 editText.setText("");
-
-
-
 
             }
         });
@@ -122,7 +152,7 @@ public class ComputateFragment  extends Fragment {
     }
 
 
-    private class CreateHashTable extends AsyncTask<String, Void, String> {
+     private class CreateHashTable extends AsyncTask<String, Void, String> {
 
 
         public String sCurrentLine = "";
@@ -159,6 +189,7 @@ public class ComputateFragment  extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+
             onBootSpinner.setVisibility(View.INVISIBLE);
             editText.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
@@ -187,25 +218,23 @@ public class ComputateFragment  extends Fragment {
             if(s.length() > 0) {
                 int currentCharCharacterValue = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
                 //REMOVES everything that is not a number
-                if (!(currentCharCharacterValue >= 48 && currentCharCharacterValue <= 57)) {
+                boolean loadingSpinnerOn = spinner.getVisibility() == View.VISIBLE;
+                //this is needed so it finishes the job before it starts another one. prevents crash
+                if (!(currentCharCharacterValue >= 48 && currentCharCharacterValue <= 57) && !loadingSpinnerOn ) {
                     //deletes if not a number
                     if (s.length() > 0) {
                         s.delete(indexOne, indexTwo);
                     }
-                }else if(editText.length() > 1 && editText.length() <= 14){
+                    }else if(editText.length() > 1 && editText.length() <= 14 && !loadingSpinnerOn){
+                        // this is so that it computes on every number you enter
+                        getNumberReturn();
 
-                    // this is so that it computes on every number you enter
-                    getNumberReturn();
+                    }else if(editText.length() < 2 ){ //for when deleting
 
-                }else if(editText.length() < 2 ){
+                        wordAfterReturnedGreyBar.setText("");
 
-                    wordAfterReturnedGreyBar.setText("");
-
-                }
+                    }
             }
-
-
-
         }
     };
 
@@ -218,8 +247,6 @@ public class ComputateFragment  extends Fragment {
         cellNumber = cellNumber.replaceAll("\\(","");
         cellNumber = cellNumber.replaceAll("\\)", "");
         cellNumber = cellNumber.replaceAll(" ","");
-
-
 
 
         finishedWordWithDash = cellNumber;
@@ -259,14 +286,12 @@ public class ComputateFragment  extends Fragment {
                 }
             }
 
-
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
             //this is for buffered reader and going through txt files ect
-
 
             AS_HashTable taskTwo = new AS_HashTable();
             taskTwo.execute();
@@ -292,14 +317,11 @@ public class ComputateFragment  extends Fragment {
                     wordReturnedFromDict.add(number + "," + word);
                 }
             }
-
-
-
             //renews if you want to run again
             numberIterations.clear();
 
 
-            //this is for if there are no returned words.
+          //this is for if there are no returned words.
             if(!wordReturnedFromDict.isEmpty()) {
                 for (String returnedWord: wordReturnedFromDict) {
 
@@ -319,8 +341,7 @@ public class ComputateFragment  extends Fragment {
                         finishedWordWithDash = finishedWordWithDash.substring(0, finishedWordWithDash.length() - 1);
                     }
                 }
-            }
-            else{
+            }else{
                 finishedWordWithDash = "Sorry mate.";
             }
 
@@ -329,10 +350,6 @@ public class ComputateFragment  extends Fragment {
                 finishedWordWithDash = finishedWordWithDash.replace("--", "-");
 
             }
-
-
-
-
 
             return null;
         }
@@ -345,12 +362,7 @@ public class ComputateFragment  extends Fragment {
         @Override
         protected void onPostExecute(String result) {
 
-            
-
-
             wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
-            //wordAfterReturnedGreyBar.setVisibility(View.VISIBLE);
-
 
 
             wordAfterReturnedGreyBar.setText(finishedWordWithDash);
@@ -371,13 +383,9 @@ public class ComputateFragment  extends Fragment {
 
 
 
-
-
-
     public static void computeContactNumber(String fromContactsNumber) {
-
+        //this is used from topfragment after a number is colected from contacts
         editText.setText(fromContactsNumber);
-
 
     }
 
@@ -390,17 +398,5 @@ public class ComputateFragment  extends Fragment {
         editText.setText("");
 
     }
-
-    public void toast(String string){
-
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = string;
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-    }
-
 
 }

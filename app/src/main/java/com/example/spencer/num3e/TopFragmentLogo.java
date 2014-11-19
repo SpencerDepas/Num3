@@ -12,8 +12,6 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,13 +42,16 @@ public class TopFragmentLogo extends Fragment {
     }
 
 
+    static boolean hasSavedContents;
+    static ImageView imageHistory;
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTOY_ARRAY_SIZE, 0)) > 0;
+        hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTORY_ARRAY_SIZE, 0)) > 0;
 
         TextView textView = (TextView) view.findViewById(R.id.greybar);
         textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
@@ -60,7 +61,7 @@ public class TopFragmentLogo extends Fragment {
         f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
 
 
-        ImageView imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
+        imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
         ImageView imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
 
         //if there is no history, you can not see the history button.
@@ -68,8 +69,6 @@ public class TopFragmentLogo extends Fragment {
             imageHistory.setVisibility(View.INVISIBLE);
             imageHistory.setClickable(false);
 
-            imageGetContact.setVisibility(View.INVISIBLE);
-            imageGetContact.setClickable(false);
         }
 
 
@@ -101,6 +100,11 @@ public class TopFragmentLogo extends Fragment {
         });
 
 
+    }
+
+    public static void fromFirstEverBootMakeHistoryButtonVisableAfterFirstClick(){
+        imageHistory.setVisibility(View.VISIBLE);
+        imageHistory.setClickable(true);
     }
 
 
@@ -159,7 +163,7 @@ public class TopFragmentLogo extends Fragment {
     public void onPause() {
         super.onPause();  // Always call the superclass method first
 
-        HistoryFragment.scrollViewState = true;
+
 
     }
 

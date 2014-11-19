@@ -45,6 +45,7 @@
                 android:textColorHint="@color/SkyBlue"
                 android:ems="10"
                 android:maxLength="14"
+                android:inputType="phone"
                 android:id="@+id/editText"
                 />
 

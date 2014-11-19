@@ -70,11 +70,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ComputateFragment.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ComputateFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/ComputateFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09002433" vertical-offset="6831" max-vertical-offset="7378">
-              <caret line="406" column="0" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1295" max-vertical-offset="7378">
+              <caret line="90" column="33" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -82,10 +82,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="TopFragmentLogo.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/TopFragmentLogo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7216981" vertical-offset="1003" max-vertical-offset="3043">
+              <caret line="100" column="53" selection-start-line="100" selection-start-column="53" selection-end-line="100" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MyActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/MyActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="617" max-vertical-offset="1190">
+            <state vertical-scroll-proportion="0.0" vertical-offset="566" max-vertical-offset="1190">
               <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding />
             </state>
@@ -1197,10 +1207,10 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/computate_fragment.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/TopFragmentLogo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/HistoryFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/MyActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/ComputateFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/TopFragmentLogo.java" />
       </list>
     </option>
   </component>
@@ -1208,8 +1218,8 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="38" />
-    <option name="y" value="179" />
+    <option name="x" value="4" />
+    <option name="y" value="89" />
     <option name="width" value="1288" />
     <option name="height" value="756" />
   </component>
@@ -1457,7 +1467,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="1bcc6382" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555" />
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -1658,7 +1668,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="38" y="179" width="1288" height="756" extended-state="0" />
+    <frame x="4" y="89" width="1288" height="756" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2068,14 +2078,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/TopFragmentLogo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3043">
-          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/HistoryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1241">
@@ -2108,11 +2110,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/ComputateFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09002433" vertical-offset="6831" max-vertical-offset="7378">
-          <caret line="406" column="0" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1295" max-vertical-offset="7378">
+          <caret line="90" column="33" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="87" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/spencer/num3e/TopFragmentLogo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7216981" vertical-offset="1003" max-vertical-offset="3043">
+          <caret line="100" column="53" selection-start-line="100" selection-start-column="53" selection-end-line="100" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>

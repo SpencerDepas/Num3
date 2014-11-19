@@ -65,7 +65,7 @@ public class TopFragmentLogo extends Fragment {
 
         RelativeLayout f1 = (RelativeLayout) view.findViewById(R.id.RelativeLayout);
         f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
-
+        final TextView wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
 
 
 
@@ -83,7 +83,7 @@ public class TopFragmentLogo extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+            wordAfterReturnedGreyBar.setText("");
             Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
             startActivity(intent);
 
@@ -98,7 +98,7 @@ public class TopFragmentLogo extends Fragment {
 
             @Override
             public void onClick(View v) {
-
+                wordAfterReturnedGreyBar.setText("");
                 pickContact();
 
             }

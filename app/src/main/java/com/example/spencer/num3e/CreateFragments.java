@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,11 +25,13 @@ public class CreateFragments extends Activity {
         setContentView(R.layout.fragment_container_with_scroll_view);
 
 
+
+
         FragmentManager fragmentManagerTop = getFragmentManager();
         FragmentTransaction fragmentTransactionTop = fragmentManagerTop.beginTransaction();
 
         TopFragmentLogo fragmentTop = new TopFragmentLogo();
-        fragmentTransactionTop.add(R.id.topScrollView, fragmentTop);
+        fragmentTransactionTop.replace(R.id.topScrollView, fragmentTop);
         fragmentTransactionTop.commit();
 
 
@@ -36,7 +39,7 @@ public class CreateFragments extends Activity {
         FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
 
         ComputateFragment computateFragment = new ComputateFragment();
-        fragmentTransactionBottom.add(R.id.bottomScrollView, computateFragment);
+        fragmentTransactionBottom.replace(R.id.bottomScrollView, computateFragment);
         fragmentTransactionBottom.commit();
 
 
@@ -51,6 +54,8 @@ public class CreateFragments extends Activity {
     public static boolean inHistoryFragment = false;
 
     TextView numberAfterReturnedWord;
+    FragmentManager fragmentManagerBottom;
+    FragmentTransaction fragmentTransactionBottom;
 
     @Override
     public void onBackPressed() {
@@ -62,8 +67,8 @@ public class CreateFragments extends Activity {
 
             inHistoryFragment = false;
 
-            FragmentManager fragmentManagerBottom = getFragmentManager();
-            FragmentTransaction fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
+            fragmentManagerBottom = getFragmentManager();
+            fragmentTransactionBottom = fragmentManagerBottom.beginTransaction();
 
             ComputateFragment computateFragment = new ComputateFragment();
 
@@ -75,6 +80,59 @@ public class CreateFragments extends Activity {
 
         }
     }
+
+    public interface Constants {
+        String LOG = "SZD2";
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+
+
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+        Log.d(Constants.LOG, "onPause called in MyActivity");
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.d(Constants.LOG, "onStop called in MyActivity");
+        //onDestroy();
+
+
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        Log.d(Constants.LOG, "onResume called in MyActivity");
+
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+
+
+
+        //MyActivity.destroyPlease();
+        Log.d(Constants.LOG, "onDestroy called in MyActivity");
+
+
+    }
+
+
 
 
 

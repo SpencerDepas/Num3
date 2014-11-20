@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +70,10 @@ public class ComputateFragment  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(Constants.LOG, "onCreateView called");
+
+
 
         view = inflater.inflate(R.layout.computate_fragment,
                 container, false);
@@ -395,15 +400,15 @@ public class ComputateFragment  extends Fragment {
 
     }
 
+    public interface Constants {
+        String LOG = "SZD";
+    }
+
     @Override
     public void onPause() {
         super.onPause();  // Always call the superclass method first
 
-
-
-        editText.setText("");
-        editText.addTextChangedListener(watch);
-        editText.clearFocus();
+        Log.d(Constants.LOG, "onPause called");
 
     }
 
@@ -412,11 +417,9 @@ public class ComputateFragment  extends Fragment {
         super.onStop();
 
 
-        Analytics.with(getActivity()).track("onStop", new Properties());
-        editText.setText("");
-        editText.removeTextChangedListener(watch);
-        editText.clearFocus();
-        button.setClickable(false);
+        Log.d(Constants.LOG, "onStop called");
+        //onDestroy();
+
 
     }
 
@@ -424,19 +427,36 @@ public class ComputateFragment  extends Fragment {
     public void onResume(){
         super.onResume();
 
-        editText.setVisibility(View.INVISIBLE);
-        button.setVisibility(View.INVISIBLE);
-        onBootSpinner.setVisibility(View.VISIBLE);
+        Log.d(Constants.LOG, "onResume called");
 
+    }
 
-        button.setClickable(true);
-        CreateHashTable task = new CreateHashTable();
-        task.execute();
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        //MyActivity.destroyPlease();
+        Log.d(Constants.LOG, "onDestroyView called");
 
 
     }
 
+    public void onDestroy() {
+        super.onDestroy();
 
+        //MyActivity.destroyPlease();
+        Log.d(Constants.LOG, "onDestroy called");
+
+
+    }
+
+    public void onDetach() {
+        super.onDetach();
+
+        //MyActivity.destroyPlease();
+        Log.d(Constants.LOG, "onDetach called");
+
+
+    }
 
 
 }

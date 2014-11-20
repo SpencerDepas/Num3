@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.segment.analytics.Analytics;
@@ -20,6 +21,8 @@ public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(ComputateFragment.Constants.LOG, "onCreate called");
 
         setContentView(R.layout.clearfaun);
         RelativeLayout clearf = (RelativeLayout) findViewById(R.id.clearfaunrl);
@@ -63,14 +66,6 @@ public class MyActivity extends Activity {
                 }
             }, secondsDelayed * 1000);
         }
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-
-
-
     }
 
 

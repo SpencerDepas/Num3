@@ -414,8 +414,9 @@ public class ComputateFragment  extends Fragment {
 
         Analytics.with(getActivity()).track("onStop", new Properties());
         editText.setText("");
-        editText.addTextChangedListener(watch);
+        editText.removeTextChangedListener(watch);
         editText.clearFocus();
+        button.setClickable(false);
 
     }
 
@@ -428,7 +429,7 @@ public class ComputateFragment  extends Fragment {
         onBootSpinner.setVisibility(View.VISIBLE);
 
 
-
+        button.setClickable(true);
         CreateHashTable task = new CreateHashTable();
         task.execute();
 

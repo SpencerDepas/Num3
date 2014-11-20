@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Properties;
 
 
 /**
@@ -83,6 +85,7 @@ public class TopFragmentLogo extends Fragment {
             @Override
             public void onClick(View v) {
 
+            Analytics.with(getActivity()).track("Pressed history", new Properties());
             wordAfterReturnedGreyBar.setText("");
             Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
             startActivity(intent);
@@ -98,6 +101,7 @@ public class TopFragmentLogo extends Fragment {
 
             @Override
             public void onClick(View v) {
+                Analytics.with(getActivity()).track("Pressed get contacts", new Properties());
                 wordAfterReturnedGreyBar.setText("");
                 pickContact();
 

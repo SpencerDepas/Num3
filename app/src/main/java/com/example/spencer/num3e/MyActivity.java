@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.RelativeLayout;
 
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Properties;
 
 
 public class MyActivity extends Activity {
@@ -37,14 +39,17 @@ public class MyActivity extends Activity {
 
 
 
+
         if (firstBoot == 310) {
 
+            Analytics.with(this).track("App open", new Properties());
             //then start like normal
             Intent intent = new Intent(MyActivity.this, CreateFragments.class);
             MyActivity.this.startActivity(intent);
             finish();
 
         }else{
+            Analytics.with(this).track("App open first time", new Properties());
             //show logo on first boot
             int secondsDelayed = 2;
             new Handler().postDelayed(new Runnable() {

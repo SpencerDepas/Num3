@@ -21,6 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Properties;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -107,6 +110,7 @@ public class ComputateFragment  extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                Analytics.with(getActivity()).track("Pressed clear", new Properties());
 
                 SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -395,6 +399,8 @@ public class ComputateFragment  extends Fragment {
     public void onPause() {
         super.onPause();  // Always call the superclass method first
 
+
+
         editText.setText("");
         editText.addTextChangedListener(watch);
         editText.clearFocus();
@@ -405,6 +411,8 @@ public class ComputateFragment  extends Fragment {
     public void onStop() {
         super.onStop();
 
+
+        Analytics.with(getActivity()).track("onStop", new Properties());
         editText.setText("");
         editText.addTextChangedListener(watch);
         editText.clearFocus();
@@ -418,6 +426,8 @@ public class ComputateFragment  extends Fragment {
         editText.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
         onBootSpinner.setVisibility(View.VISIBLE);
+
+
 
         CreateHashTable task = new CreateHashTable();
         task.execute();

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="core-2.4.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.segment.analytics.android/core/2.4.2/89f89fe110fce48f0af2e81226d408595b0a5e46/core-2.4.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.segment.analytics.android/core/2.4.2/3b41c530b4a4fcf6fd7df2e04e21c35e7effd1b5/core-2.4.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

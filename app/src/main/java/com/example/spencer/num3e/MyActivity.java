@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
+import com.crittercism.app.Crittercism;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 
@@ -21,6 +22,8 @@ public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Crittercism.initialize(getApplicationContext(), "546d5bc283fb793df4000003");
 
         Log.d(ComputateFragment.Constants.LOG, "onCreate called");
 

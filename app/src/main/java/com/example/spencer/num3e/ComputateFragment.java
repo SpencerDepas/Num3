@@ -137,7 +137,6 @@ public class ComputateFragment  extends Fragment {
                     editor.putString("array_" + SavedListOfWordsArrayIndex, finishedWordWithDash + ":  " + cellNumber);
                     editor.putInt(HISTORY_ARRAY_SIZE, SavedListOfWordsArrayIndex);
                     editor.apply();
-                    SavedListOfWordsArrayIndex ++;
 
                 }else {
 

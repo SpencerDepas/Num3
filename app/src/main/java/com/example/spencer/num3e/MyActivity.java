@@ -35,7 +35,7 @@ public class MyActivity extends Activity {
 
         // removes saved prefrences
 
-       /* editor.clear();
+        /*editor.clear();
         editor.apply();*/
 
         int firstBoot = sharedpreferences.getInt("first_boot", 0);

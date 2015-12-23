@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +30,10 @@ import com.segment.analytics.Properties;
 public class TopFragmentLogo extends Fragment {
 
 
-      // The request code
+    // The request code
     static final int PICK_CONTACT_REQUEST = 0;
 
+    FloatingActionButton mFab;
 
     View view;
 
@@ -38,7 +42,7 @@ public class TopFragmentLogo extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.top_fragment, container, false);
-
+        mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
         return view;
     }
@@ -46,7 +50,8 @@ public class TopFragmentLogo extends Fragment {
 
     static boolean hasSavedContents;
     static ImageView imageHistory;
-    static ImageView imageGetContact;
+
+    CardView cardViewTopFragment;
 
 
     @Override
@@ -54,25 +59,22 @@ public class TopFragmentLogo extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         imageHistory = (ImageView) view.findViewById(R.id.imageHistory);
-        imageGetContact = (ImageView) view.findViewById(R.id.to_contacts);
-
-
+        cardViewTopFragment = (CardView) view.findViewById(R.id.cardViewTopFragment);
 
         SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTORY_ARRAY_SIZE, 0)) > 0;
 
         TextView textView = (TextView) view.findViewById(R.id.greybar);
-        textView.setBackgroundColor(getResources().getColor(R.color.DimGray));
+        cardViewTopFragment.setBackgroundColor(getResources().getColor(R.color.BlueGray));
 
 
         RelativeLayout f1 = (RelativeLayout) view.findViewById(R.id.RelativeLayout);
-        f1.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
+        //cardViewTopFragment.setBackgroundColor(getResources().getColor(R.color.BlueGray));
         final TextView wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
 
 
-
         //if there is no history, you can not see the history button.
-        if(!hasSavedContents){
+        if (!hasSavedContents) {
             imageHistory.setVisibility(View.INVISIBLE);
             imageHistory.setClickable(false);
 
@@ -84,34 +86,48 @@ public class TopFragmentLogo extends Fragment {
 
             @Override
             public void onClick(View v) {
-
-            Analytics.with(getActivity()).track("Pressed history", new Properties());
-            wordAfterReturnedGreyBar.setText("");
-            Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
-            startActivity(intent);
-
-
-            }
-
-
-        });
-
-        // to get numbers from contacts
-        imageGetContact.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Analytics.with(getActivity()).track("Pressed get contacts", new Properties());
+                Log.i("MyTopFragmentLogo", "imageHistory onClick ");
+                Analytics.with(getActivity()).track("Pressed history", new Properties());
                 wordAfterReturnedGreyBar.setText("");
-                pickContact();
+                Intent intent = new Intent(getActivity(), TransitionFromScrollView.class);
+                startActivity(intent);
+
 
             }
 
 
         });
+
+
+
+
+
+        if(mFab != null){
+            mFab.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    Log.i("MyTopFragmentLogo", "fab onClick ");
+                    Analytics.with(getActivity()).track("Pressed get contacts", new Properties());
+                    wordAfterReturnedGreyBar.setText("");
+                    pickContact();
+
+                }
+
+
+            });
+        }
+
+
 
 
     }
+
+
+
+
+
 
     public static void trueForVisable(boolean visable){
 
@@ -119,15 +135,12 @@ public class TopFragmentLogo extends Fragment {
             imageHistory.setVisibility(View.VISIBLE);
             imageHistory.setClickable(true);
 
-            imageGetContact.setVisibility(View.VISIBLE);
-            imageGetContact.setClickable(true);
+
         }else{
 
             imageHistory.setVisibility(View.INVISIBLE);
             imageHistory.setClickable(false);
 
-            imageGetContact.setVisibility(View.INVISIBLE);
-            imageGetContact.setClickable(false);
 
         }
 

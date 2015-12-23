@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
@@ -14,7 +16,7 @@ import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends AppCompatActivity {
 
     //app was originally called Num3e
 
@@ -27,7 +29,11 @@ public class MyActivity extends Activity {
 
         Log.d(ComputateFragment.Constants.LOG, "onCreate called");
 
-        setContentView(R.layout.clearfaun);
+        setContentView(R.layout.clear_faun_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         RelativeLayout clearf = (RelativeLayout) findViewById(R.id.clearfaunrl);
         clearf.setBackgroundColor(getResources().getColor(R.color.white));
 

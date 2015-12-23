@@ -5,6 +5,8 @@ import android.app.ListFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 
@@ -16,11 +18,13 @@ import java.util.ArrayList;
  */
 public class HistoryFragment extends ListFragment {
 
-
+    FloatingActionButton mFab;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Log.i("MyHistoryFragment", "onActivityCreated");
 
         CreateFragments.inHistoryFragment = true;
 
@@ -33,9 +37,13 @@ public class HistoryFragment extends ListFragment {
 
         boolean hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTORY_ARRAY_SIZE, 0)) >= 0;
 
+        Log.i("MyHistoryFragment", "hasSavedContents : " + hasSavedContents);
+
         if(hasSavedContents) {
 
             int arraySize = (sharedpreferences.getInt(ComputateFragment.HISTORY_ARRAY_SIZE, 0)) ;
+
+            Log.i("MyHistoryFragment", "arraySize : " + arraySize);
 
             if (arraySize >= 0) {
                 for (int i = arraySize ; i >= 0; i--) {
@@ -56,6 +64,9 @@ public class HistoryFragment extends ListFragment {
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                     android.R.layout.simple_list_item_1, tempStringArray);
+
+
+
             setListAdapter(adapter);
         }
     }

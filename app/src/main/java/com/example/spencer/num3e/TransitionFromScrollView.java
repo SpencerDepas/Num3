@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 /**
  * Created by spencer on
  * 9/30/2014.
  */
-public class TransitionFromScrollView extends Activity {
+public class TransitionFromScrollView extends AppCompatActivity {
 
 
 
@@ -18,9 +21,12 @@ public class TransitionFromScrollView extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_container);
+        setContentView(R.layout.history_activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        Log.i("MyTransitionFromScroll", "TransitionFromScrollView ");
 
         LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayout3);
         rl.setBackgroundColor(getResources().getColor(R.color.white));

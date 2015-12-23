@@ -1,18 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 23
     buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId 'com.clearfaun.spencer_depas'
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 23
         versionCode 12
         versionName '2.0'
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -23,7 +23,11 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.crittercism:crittercism-android-agent:+'
-    compile 'com.android.support:appcompat-v7:19.+'
+
+    compile 'com.android.support:cardview-v7:23.1.1'
+
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.google.android.gms:play-services:+'
     compile('com.segment.analytics.android:core:+') {
         transitive = true

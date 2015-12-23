@@ -98,8 +98,8 @@ public class ComputateFragment  extends Fragment {
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
         wordAfterReturnedGreyBar = (TextView) getActivity().findViewById(R.id.greybar);
 
-        button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
-        button.setBackgroundColor(getResources().getColor(R.color.LightSkyBlue));
+        //button.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
+        button.setBackgroundColor(getResources().getColor(R.color.BlueGray));
 
         editText.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
@@ -229,6 +229,7 @@ public class ComputateFragment  extends Fragment {
                 int currentCharCharacterValue = editText.getText().toString().substring(s.length() - 1, s.length()).charAt(0);
                 //REMOVES everything that is not a number
                 boolean loadingSpinnerOn = spinner.getVisibility() == View.VISIBLE;
+
                 //this is needed so it finishes the job before it starts another one. prevents crash
                 if (!(currentCharCharacterValue >= 48 && currentCharCharacterValue <= 57) && !loadingSpinnerOn ) {
                     //deletes if not a number
@@ -251,7 +252,7 @@ public class ComputateFragment  extends Fragment {
     //this is for when a NUMBER IS ENTERED AND YOU WANT TO GET THE REURN
     public void getNumberReturn(){
 
-        spinner.setVisibility(View.VISIBLE);
+        //spinner.setVisibility(View.VISIBLE);
 
         cellNumber = editText.getText().toString().replaceAll("-","");
         cellNumber = cellNumber.replaceAll("\\(","");

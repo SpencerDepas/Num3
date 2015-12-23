@@ -3,18 +3,28 @@ package com.example.spencer.num3e;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Properties;
 
 /**
  * Created by spencer
  * on 11/4/2014.
  */
-public class CreateFragments extends Activity {
+public class CreateFragments extends AppCompatActivity {
 
-
+    FloatingActionButton mFab;
 
 
 
@@ -22,10 +32,13 @@ public class CreateFragments extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.fragment_container_with_scroll_view);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
 
-
+        mFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
 
         FragmentManager fragmentManagerTop = getFragmentManager();
         FragmentTransaction fragmentTransactionTop = fragmentManagerTop.beginTransaction();
@@ -45,6 +58,10 @@ public class CreateFragments extends Activity {
 
         LinearLayout rl = (LinearLayout) findViewById(R.id.LinearLayoutContainer);
         rl.setBackgroundColor(getResources().getColor(R.color.white));
+
+
+
+
 
 
     }

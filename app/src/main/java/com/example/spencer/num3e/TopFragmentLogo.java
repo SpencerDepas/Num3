@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -65,8 +66,8 @@ public class TopFragmentLogo extends Fragment {
         hasSavedContents = (sharedpreferences.getInt(ComputateFragment.HISTORY_ARRAY_SIZE, 0)) > 0;
 
         TextView textView = (TextView) view.findViewById(R.id.greybar);
-        cardViewTopFragment.setBackgroundColor(getResources().getColor(R.color.BlueGray));
-
+        //cardViewTopFragment.setBackgroundColor(getResources().getColor(R.color.BlueGray));
+        cardViewTopFragment.setCardBackgroundColor(Color.parseColor("#607D8B"));
 
         RelativeLayout f1 = (RelativeLayout) view.findViewById(R.id.RelativeLayout);
         //cardViewTopFragment.setBackgroundColor(getResources().getColor(R.color.BlueGray));

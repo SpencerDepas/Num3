@@ -11,9 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
+import com.crashlytics.android.answers.Answers;
 import com.crittercism.app.Crittercism;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
+import io.fabric.sdk.android.Fabric;
 
 
 public class MyActivity extends AppCompatActivity {
@@ -24,6 +26,7 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Answers());
 
         Crittercism.initialize(getApplicationContext(), "546d5bc283fb793df4000003");
 
